@@ -14,7 +14,8 @@ public abstract class GenericDAO{
         Connection con = null;
         try{
             con = DatabaseConnector.getDatabaseConnection();
-            try(PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement stmt = con.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS)){
                 for(int i = 0; i < parameters.length; i++){
                     stmt.setObject(i + 1, parameters[i]);
                 }
