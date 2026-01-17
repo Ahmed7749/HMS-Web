@@ -3,18 +3,29 @@ package com.hospital;
 import com.hospital.daos.AppointmentDAO;
 import com.hospital.daos.DoctorDAO;
 import com.hospital.daos.PatientDAO;
+import com.hospital.daos.UserDAO;
 import com.hospital.pojos.Appointment;
 import com.hospital.pojos.Doctor;
 import com.hospital.pojos.Patient;
+import com.hospital.pojos.User;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 public class HospitalService {
-    private final PatientDAO patientDAO;
-    private final DoctorDAO doctorDAO;
-    private final AppointmentDAO appointmentDAO;
+    private PatientDAO patientDAO;
+    private DoctorDAO doctorDAO;
+    private AppointmentDAO appointmentDAO;
+    private UserDAO userDAO;
+    public HospitalService() {
+        this.patientDAO = new PatientDAO();
+        this.doctorDAO = new DoctorDAO();
+        this.appointmentDAO = new AppointmentDAO();
+        this.userDAO = new UserDAO();
+    }
+
     public HospitalService(PatientDAO patientDAO, DoctorDAO doctorDAO, AppointmentDAO appointmentDAO) {
         this.patientDAO = patientDAO;
         this.doctorDAO = doctorDAO;
