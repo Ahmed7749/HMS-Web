@@ -1,0 +1,34 @@
+package com.hospital.daos;
+
+import com.hospital.pojos.User;
+import com.hospital.utils.UserSupplier;
+
+import java.util.List;
+import java.util.Optional;
+
+public class UserDAO extends GenericDAO{
+
+    public int addUser(User user){
+        String sql = "INSERT INTO users(username, password, role) VALUES (?,?,?)";
+
+        return executeUpdateReturnId(sql, user.getUserName(), user.getPassword(), user.getRole().toString());
+    }
+
+    public Optional<User> loggedIn(String username, String password){
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        return executeQuerySingle(sql, UserSupplier::getUserViaResultSet, username, password);
+    }
+
+
+    public Optional<User> userExists(String username){
+        String sql = "SELECT * FROM users WHERE username = ?";
+        return executeQuerySingle(sql, UserSupplier::getUserViaResultSet, username);
+    }
+
+    public List<User> getUsers(){
+        String sql = "SELECT * FROM users";
+
+        return executeQueryList(sql, UserSupplier::getUserViaResultSet);
+    }
+}
