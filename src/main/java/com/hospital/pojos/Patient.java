@@ -27,12 +27,14 @@ public class Patient{
                    Genders gender,
                    LocalDate birthDate,
                    String middleName,
-                   String lastName) {
+                   String lastName,
+                   int userId) {
         this.name = Validations.checkNotNull(name, "User must have a name");
         this.gender = Validations.checkNotNull(gender, "They are only 2 genders. Pick one");
         this.birthDate = Validations.checkNotNull(birthDate, "User must be born");
         this.middleName = middleName;
         this.lastName = Validations.checkNotNull(lastName, "User must have a family name");
+        this.userId = userId;
     }
 
 
