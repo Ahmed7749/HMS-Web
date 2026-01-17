@@ -84,20 +84,6 @@ public class Patient{
     }
 
 
-    public static Patient getRandomPatient(){
-        Random rand = new Random();
-        String[] names = {"Ahmed", "Nora", "Assel", "Jhon", "Mansoor"};
-        String[] middleNames = {"Maher", "Khalid", "Nasser", "Ali"};
-        String[] lastNames = {"Qassem", "Jamous", "Qashalq", "AboMustafa", "Aljafree"};
-        return new Patient(
-                names[rand.nextInt(names.length)],
-                Genders.MALE,
-                LocalDate.parse("2006-12-05"),
-                middleNames[rand.nextInt(middleNames.length)],
-                lastNames[rand.nextInt(lastNames.length)]);
-    }
-
-
     @Override
     public String toString() {
         System.out.println("-".repeat(110));
