@@ -11,15 +11,16 @@ public class Patient{
     private LocalDate birthDate;
     private String middleName;
     private String lastName;
+    private int userId;
 
-
-    public Patient(int id, String name, Genders gender, LocalDate birthDate, String middleName, String lastName) {
+    public Patient(int id, String name, Genders gender, LocalDate birthDate, String middleName, String lastName, int userId) {
         this.id = id;
         this.name = Validations.checkNotNull(name,"Null name has been entered");
         this.gender = Validations.checkNotNull(gender, "Wrong gender has been Entered");
         this.birthDate = Validations.checkNotNull(birthDate, "The user must be born at a date..");
         this.middleName = middleName;
         this.lastName = Validations.checkNotNull(lastName, "User must have a last name");
+        this.userId = userId;
     }
 
     public Patient(String name,
@@ -83,6 +84,9 @@ public class Patient{
         this.lastName = lastName;
     }
 
+    public int getUserId() {
+        return userId;
+    }
 
     @Override
     public String toString() {
