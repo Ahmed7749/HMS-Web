@@ -14,13 +14,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles/shared/body.css">
-    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/login.css">
     <title>Log in page</title>
 </head>
 <body>
+    <jsp:include page="/components/header.jsp" />
     <div class="login-card">
-
         <form action="login" method="post">
             <h1>Log in</h1>
             <c:if test="${not empty error}">
@@ -33,6 +33,7 @@
             <label for="password">Password</label>
             <input name="password" type="password" placeholder="enter password" required>
             <input type="submit">
+            <div><small>not signed in ? <a href="signup">SIGN UP NOW !</a></small></div>
         </form>
     </div>
     <script src="scripts/sharedJS.js"></script>
