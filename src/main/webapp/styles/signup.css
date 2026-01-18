@@ -1,0 +1,50 @@
+
+
+.signup-card{
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    padding: 20px;
+    border-radius: 15px;
+    height: 700px;
+    margin: auto;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+form h1{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+form input{
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+form input:hover{
+    cursor: pointer;
+
+}
+
+form input:focus{
+    outline: none;
+}
+
+.personal-info{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.submit-button:hover{
+    cursor: pointer;
+}
+
