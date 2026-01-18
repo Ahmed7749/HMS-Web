@@ -14,8 +14,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>sign up page</title>
-    <link rel="stylesheet" href="styles/signup.css">
-    <link rel="stylesheet" href="styles/shared/body.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}styles/signup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
 </head>
 <body>
     <div class="signup-card">
@@ -46,6 +46,7 @@
                 </div>
             </div>
             <input type="submit" class="submit-button">
+            <div><small>Already have an account ? <a href="login.jsp">Log in !</a></small></div>
         </form>
     </div>
     <script src="scripts/sharedJS.js"></script>
