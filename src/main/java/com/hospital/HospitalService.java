@@ -7,7 +7,7 @@ import com.hospital.daos.UserDAO;
 import com.hospital.pojos.Appointment;
 import com.hospital.pojos.Doctor;
 import com.hospital.pojos.Patient;
-import com.hospital.pojos.User;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -86,7 +86,7 @@ public class HospitalService {
 
 
     public boolean bookAppointment(Appointment appointment){
-        if (appointmentDAO.isBooked(appointment.getAppointmentTime(), appointment.getAppointmentDate(), appointment.getPatient_id(), appointment.getDoctor_id())) {
+        if (appointmentDAO.isDoctorBusy(appointment.getAppointmentTime(), appointment.getAppointmentDate(), appointment.getDoctor_id())) {
             return false;
         }
         return appointmentDAO.bookAppointment(appointment);
@@ -95,7 +95,7 @@ public class HospitalService {
     public boolean updateAppointmentTime(int appointmentId, LocalTime newTime){
         Optional<Appointment> appointment = appointmentDAO.getAppointmentById(appointmentId);
         if(appointment.isPresent()) {
-            if (appointmentDAO.isBooked(appointment.get().getAppointmentTime(), appointment.get().getAppointmentDate(), appointment.get().getPatient_id(), appointment.get().getDoctor_id())) {
+            if (appointmentDAO.isDoctorBusy(appointment.get().getAppointmentTime(), appointment.get().getAppointmentDate(), appointment.get().getDoctor_id())) {
                 return appointmentDAO.updateAppointmentTime(appointment.get(), newTime);
             }
             return false;
@@ -106,7 +106,7 @@ public class HospitalService {
     public boolean updateAppointmentDate(int appointmentId, LocalDate newDate){
         Optional<Appointment> appointment = appointmentDAO.getAppointmentById(appointmentId);
         if(appointment.isPresent()) {
-            if (appointmentDAO.isBooked(appointment.get().getAppointmentTime(), appointment.get().getAppointmentDate(), appointment.get().getPatient_id(), appointment.get().getDoctor_id())) {
+            if (appointmentDAO.isDoctorBusy(appointment.get().getAppointmentTime(), appointment.get().getAppointmentDate(), appointment.get().getDoctor_id())) {
                 return appointmentDAO.updateAppointmentDate(appointment.get(), newDate);
             }
             return false;
