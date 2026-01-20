@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class PatientDAO extends GenericDAO{
     public boolean addPatientToDB(Patient patient){
-        String sql = "INSERT INTO patients(name,gender,birth_date,middle_name,last_name, user_id) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO patients(name,gender,birth_date,middle_name,last_name, user_id) VALUES(?,?,?,?,?,?)";
         return executeUpdate(sql,
                 patient.getName(),
                 patient.getGender().toString(),
@@ -19,6 +19,15 @@ public class PatientDAO extends GenericDAO{
     }
 
 
+    public int getPatientIdByUserId(int userId) {
+        String sql = "SELECT id FROM patients WHERE user_id = ?";
+        Optional<Integer> foundId = executeQuerySingle(
+                sql,
+                rs -> rs.getInt("id"),
+                userId
+        );
+        return foundId.orElse(-1);
+    }
 
     public Optional<Patient> getPatientById(int id){
         String sql = "SELECT * FROM patients WHERE id = ?";
