@@ -27,9 +27,9 @@ public class AppointmentDAO extends GenericDAO{
         return executeQueryList(sql, AppointmentSupplier::getAppointmentViaResultSet, patientId);
     }
 
-    public boolean isBooked(LocalTime time,LocalDate date,int patient_id, int doctor_id){
-        String sql = "SELECT * FROM appointments WHERE appointment_time = ? AND patient_id = ? AND appointment_date = ? AND doctor_id = ?";
-        return executeQuerySingle(sql, AppointmentSupplier::getAppointmentViaResultSet,time, patient_id, date ,doctor_id).isPresent();
+    public boolean isDoctorBusy(LocalTime time, LocalDate date, int doctor_id){
+        String sql = "SELECT * FROM appointments WHERE appointment_time = ? AND appointment_date = ? AND doctor_id = ?";
+        return executeQuerySingle(sql, AppointmentSupplier::getAppointmentViaResultSet,time, date ,doctor_id).isPresent();
     }
 
 
@@ -54,5 +54,13 @@ public class AppointmentDAO extends GenericDAO{
     public List<Appointment> getListOfAppointments(){
         String sql = "SELECT * FROM appointments";
         return executeQueryList(sql, AppointmentSupplier::getAppointmentViaResultSet);
+    }
+
+    public boolean isPatientBusy(LocalTime time, LocalDate date, int patient_id) {
+        String sql = "SELECT * FROM appointments WHERE appointment_time = ? AND appointment_date = ? AND patient_id = ?";
+        return executeQuerySingle(sql, AppointmentSupplier::getAppointmentViaResultSet,
+                Time.valueOf(time),
+                Date.valueOf(date),
+                patient_id).isPresent();
     }
 }
