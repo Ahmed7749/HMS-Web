@@ -8,6 +8,7 @@
     top: 0;
     right: 0;
     left: 0;
+    height: 100px;
 }
 
 
@@ -23,6 +24,13 @@
     color: white;
 }
 
+.middle-side{
+    display: flex;
+    width: 800px;
+    column-gap: 90px;
+    justify-content: center;
+}
+
 .middle-side a{
     text-decoration: none;
     color: black;
@@ -30,10 +38,50 @@
     transition: 0.12s;
 }
 .middle-side a:hover{
-    color: white;
+    color: black;
+    background-color: white;
+    padding: 30px;
 }
 
 .right-side{
+    display: flex;
+    position: relative;
+    flex-direction: column;
     margin-right: 12px;
     font-size: 20px;
+}
+
+.logout-click{
+    text-decoration: none;
+    position: absolute;
+    right: 65px;
+    bottom: -10px;
+    color: darkblue;
+    transition: 0.12s;
+}
+
+.logout-click:hover{
+    translate: 0 -2px;
+    color: #00006a;
+}
+
+.login-click{
+    text-decoration: none;
+    color: darkblue;
+    transition: 0.12s;
+}
+
+.login-click:hover{
+    translate: 0 -2px;
+    color: #00006a;
+}
+
+.signup-click{
+    text-decoration: none;
+    color: darkblue;
+    transition: 0.12s;
+}
+.signup-click:hover{
+    translate: 0 -2px;
+    color: #00006a;
 }
