@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ahmad
-  Date: 1/18/2026
-  Time: 5:00 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
@@ -16,24 +9,30 @@
     <header>
         <nav class="header">
             <div class="left-side logo">
-                <a href="${pageContext.request.contextPath}/index.jsp">Lorantia hospital</a>
+                <a href="${pageContext.request.contextPath}/index">Lorantia hospital</a>
             </div>
             <div class="middle-side">
                 <a href="${pageContext.request.contextPath}/about.jsp">About us</a>
+                <c:if test="${not empty sessionScope.user}">
+                    <a href="${pageContext.request.contextPath}/patient/book">Book now !</a>
+                    <a href="${pageContext.request.contextPath}/patient/appointments">Your appointments</a>
+                    <a href="${pageContext.request.contextPath}/patient/recipes">Your doctor recipes</a>
+                </c:if>
             </div>
             <div class="right-side">
                 <c:choose>
                     <c:when test="${not empty sessionScope.user}">
-                        <p class="welcome-message">Welcome ${user.userName} !</p>
+                        <p class="welcome-message"><span>Welcome ${user.userName}</span>!</p>
+                        <a class="logout-click" href="${pageContext.request.contextPath}/logout">Logout</a>
                     </c:when>
                     <c:otherwise>
                         <p>
                             <span class="login-span">
-                                <a href="${pageContext.request.contextPath}/login.jsp">Log in</a>
+                                <a class="login-click" href="${pageContext.request.contextPath}/login">Log in</a>
                             </span>
                                     /
                             <span class="signup-span">
-                                <a href="${pageContext.request.contextPath}/signup">Sign up</a>
+                                <a class="signup-click" href="${pageContext.request.contextPath}/signup">Sign up</a>
                             </span>
                         </p>
                     </c:otherwise>
