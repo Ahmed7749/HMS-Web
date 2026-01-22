@@ -4,6 +4,7 @@
 <head>
     <title>header</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
 </head>
 <body>
     <header>
