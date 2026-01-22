@@ -14,6 +14,7 @@ public class DoctorSupplier{
         Majors major = Majors.valueOf(majorString);
         String genderString = resultSet.getString("gender");
         Genders gender = Genders.valueOf(genderString);
-        return new Doctor(id, name, lastName, major, gender);
+        int userId = resultSet.getInt("user_id");
+        return new Doctor(id, name, lastName, major, gender, userId);
     }
 }
