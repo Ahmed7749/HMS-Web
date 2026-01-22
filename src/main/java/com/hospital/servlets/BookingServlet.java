@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet("/patient/book")
@@ -53,17 +52,17 @@ public class BookingServlet extends HttpServlet{
             int patientId = patientDAO.getPatientIdByUserId(user.getId());
             String errorMessage = validateBookingRules(date, time, doctorId, patientId);
             if (errorMessage != null) {
-                forwardToBookPage(req, resp, errorMessage, null);
+                redirectToBookPage(req, resp, errorMessage, null);
                 return;
             }
             boolean success = appointmentDAO.bookAppointment(new Appointment(date, time, patientId, doctorId));
             if (success) {
-                forwardToBookPage(req, resp, null, "Appointment Booked Successfully");
+                redirectToBookPage(req, resp, null, "Appointment Booked Successfully");
             } else {
-                forwardToBookPage(req, resp, "Database error occurred.", null);
+                redirectToBookPage(req, resp, "Database error occurred.", null);
             }
         } catch (Exception e) {
-            forwardToBookPage(req, resp, "Invalid input data.", null);
+            redirectToBookPage(req, resp, "Invalid input data.", null);
         }
     }
     private User getAuthenticatedUser(HttpServletRequest req) {
@@ -77,9 +76,9 @@ public class BookingServlet extends HttpServlet{
         if (appointmentDAO.isPatientBusy(time, date, patId)) return "You already have an appointment at this time!";
         return null; 
     }
-    private void forwardToBookPage(HttpServletRequest req, HttpServletResponse resp, String error, String success)
+    private void redirectToBookPage(HttpServletRequest req, HttpServletResponse resp, String error, String success)
             throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
         if (error != null) {
             session.setAttribute("error", error);
         }
