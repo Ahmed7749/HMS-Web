@@ -37,3 +37,36 @@
     font-weight: 600;
     margin-right: 5px;
 }
+
+
+#temp-message, #book-now{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+#temp-message {
+    background-color: red;
+    width: 300px;
+    color: white;
+    padding: 20px;
+    border-radius: 30px;
+}
+#book-now {
+    margin-top: 20px;
+    background-color: lightgreen;
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 20px;
+    transition: 0.25s;
+    text-decoration: none;
+    color: white;
+}
+
+#book-now:hover {
+    background-color: #007400;
+    cursor: pointer;
+    translate: 0 -2px;
+}
