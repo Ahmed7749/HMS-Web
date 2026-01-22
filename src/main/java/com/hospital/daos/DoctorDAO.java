@@ -10,12 +10,13 @@ import java.util.Optional;
 
 public class DoctorDAO extends GenericDAO{
     public boolean addDoctorToDB(Doctor doctor){
-        String sql = "INSERT INTO doctors (name,last_name,major,gender) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO doctors (name,last_name,major,gender,user_id) VALUES (?,?,?,?,?)";
         return executeUpdate(sql,
                 doctor.getName(),
                 doctor.getLastName(),
                 doctor.getMajor().toString(),
-                doctor.getGender().toString());
+                doctor.getGender().toString(),
+                doctor.getUserId());
     }
 
 
@@ -41,6 +42,15 @@ public class DoctorDAO extends GenericDAO{
         return executeQuerySingle(sql, DoctorSupplier::getDoctorViaResultSet, id);
     }
 
+    public int getDoctorIdByUserId(int userId){
+        String sql = "SELECT id FROM doctors WHERE user_id = ?";
+        Optional<Integer> doctorId = executeQuerySingle(
+                sql,
+                rs -> rs.getInt("id"),
+                userId
+        );
+        return doctorId.orElse(-1);
+    }
 
     public List<Doctor> getDoctorsByMajor(String major){
         String sql = "SELECT * FROM doctors WHERE major = ?";
