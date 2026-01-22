@@ -1,6 +1,8 @@
 package com.hospital.daos;
+import com.hospital.DTOs.PatientAppointmentDTO;
 import com.hospital.pojos.Appointment;
 import com.hospital.utils.AppointmentSupplier;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,9 +35,9 @@ public class AppointmentDAO extends GenericDAO{
     }
 
 
-    public boolean deleteAppointment(Appointment appointment){
+    public boolean deleteAppointment(int id){
         String sql = "DELETE FROM appointments WHERE appointment_id = ?";
-        return executeUpdate(sql, appointment.getId());
+        return executeUpdate(sql, id);
     }
 
 
@@ -62,5 +64,23 @@ public class AppointmentDAO extends GenericDAO{
                 Time.valueOf(time),
                 Date.valueOf(date),
                 patient_id).isPresent();
+    }
+
+
+    public List<PatientAppointmentDTO> getAppointmentsWithDoctorInfo(int patientId) {
+        String sql = "SELECT a.appointment_id, a.appointment_date, a.appointment_time, " +
+                "d.name, d.last_name, d.major " +
+                "FROM appointments a " +
+                "JOIN doctors d ON a.doctor_id = d.id " +
+                "WHERE a.patient_id = ?";
+
+        return executeQueryList(sql, rs -> new PatientAppointmentDTO(
+                rs.getInt("appointment_id"),
+                rs.getDate("appointment_date").toLocalDate(),
+                rs.getTime("appointment_time").toLocalTime(),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("major")
+        ), patientId);
     }
 }
