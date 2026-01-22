@@ -13,21 +13,27 @@ public class Doctor {
     private String lastName;
     private Majors major;
     private Genders gender;
+    private int userId;
 
-    public Doctor(int id, String name, String lastName, Majors major, Genders gender) {
+    public Doctor(int id, String name, String lastName, Majors major, Genders gender, int userId) {
         this.id = id;
         this.name = Validations.checkNotNull(name, "Name cannot be null");
         this.lastName = Validations.checkNotNull(lastName,"Last name cannot be null");
         this.major = Validations.checkNotNull(major, "Doctor must be majored");
         this.gender = Validations.checkNotNull(gender, "The doc must have a gender");
+        this.userId = userId;
     }
 
 
-    public Doctor(String name, String lastName, Majors major, Genders gender) {
+
+
+
+    public Doctor(String name, String lastName, Majors major, Genders gender, int userId) {
         this.name = Validations.checkNotNull(name, "Name cannot be null");
         this.lastName = Validations.checkNotNull(lastName, "last name cannot be null");
         this.major = Validations.checkNotNull(major, "Doctor must be majored");
         this.gender = Validations.checkNotNull(gender, "Gender must be male or female");
+        this.userId = userId;
     }
 
 
@@ -71,12 +77,14 @@ public class Doctor {
         this.gender = gender;
     }
 
-    public static Doctor getRandomDoctor(){
-        String [] names = {"Dr. Noha", "Dr. Sara", "Dr. Ranni", "Dr. rami"};
-        String [] lastNames = {"Al-Qassem", "Al-J3fr", "Al-Mansoory", "Al-Nasser"};
-        Random rand = new Random();
-        return new Doctor(names[rand.nextInt(names.length)], lastNames[rand.nextInt(lastNames.length)], Majors.SURGEON, Genders.MALE);
+    public int getUserId() {
+        return userId;
     }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 
     @Override
     public String toString(){
