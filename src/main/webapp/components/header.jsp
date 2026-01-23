@@ -1,24 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<html>
-<head>
-    <title>header</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
-</head>
-<body>
     <header>
         <nav class="header">
-            <div class="left-side logo">
-                <a href="${pageContext.request.contextPath}/index">Lorantia hospital</a>
+            <div class="left-side">
+                <a href="${pageContext.request.contextPath}/index.jsp">
+                    <img class="logo" src="${pageContext.request.contextPath}/images/hospitalLogo.png">
+                </a>
             </div>
             <div class="middle-side">
                 <a href="${pageContext.request.contextPath}/about.jsp">About us</a>
-                <c:if test="${not empty sessionScope.user}">
-                    <a href="${pageContext.request.contextPath}/patient/book">Book now !</a>
-                    <a href="${pageContext.request.contextPath}/patient/appointments">Your appointments</a>
-                    <a href="${pageContext.request.contextPath}/patient/recipes">Your doctor recipes</a>
-                </c:if>
+                <c:choose>
+                    <c:when test="${sessionScope.user.role eq 'PATIENT'}">
+                        <a href="${pageContext.request.contextPath}/patient/book">Book now !</a>
+                        <a href="${pageContext.request.contextPath}/patient/appointments">Your appointments</a>
+                        <a href="${pageContext.request.contextPath}/patient/recipes.jsp">Your doctor recipes</a>
+                        <a href="${pageContext.request.contextPath}/patient/home.jsp">Home page</a>
+                    </c:when>
+                    <c:when test="${sessionScope.user.role eq 'ADMIN'}">
+                        <a href="${pageContext.request.contextPath}/admin/registerDoctor">Register doctor</a>
+                        <a href="${pageContext.request.contextPath}/admin/doctors">View doctors</a>
+                        <a href="${pageContext.request.contextPath}/admin/patients">View patients</a>
+                        <a href="${pageContext.request.contextPath}/admin/home.jsp">Home page</a>
+                    </c:when>
+                    <c:otherwise></c:otherwise>
+                </c:choose>
             </div>
             <div class="right-side">
                 <c:choose>
@@ -41,5 +48,3 @@
             </div>
         </nav>
     </header>
-</body>
-</html>
