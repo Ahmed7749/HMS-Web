@@ -1,4 +1,4 @@
-package com.hospital.servlets;
+package com.hospital.servlets.Patient;
 
 import com.hospital.DTOs.PatientAppointmentDTO;
 import com.hospital.daos.AppointmentDAO;
