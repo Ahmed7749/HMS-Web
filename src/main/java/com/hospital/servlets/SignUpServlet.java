@@ -46,10 +46,11 @@ public class SignUpServlet extends HttpServlet {
             req.getRequestDispatcher("signup.jsp").forward(req, resp);
             return;
         }
-        User newUser = new User(0, username, password, Roles.PATIENT);
+        User newUser = new User(username, password, Roles.PATIENT);
         int newUserId = userDAO.addUser(newUser);
-        if (newUserId != -1) {
+        if (newUserId > 0) {
             Patient newPatient = new Patient(name, Genders.valueOf(gender.toUpperCase()), LocalDate.parse(birthDate), middleName, lastName, newUserId);
+            newPatient.setUserId(newUserId);
             patientDAO.addPatientToDB(newPatient);
             resp.sendRedirect("login.jsp?success=Account Created!");
         } else {
