@@ -1,4 +1,4 @@
-package com.hospital.servlets;
+package com.hospital.servlets.Admin;
 
 import com.hospital.Enums.Genders;
 import com.hospital.Enums.Majors;
