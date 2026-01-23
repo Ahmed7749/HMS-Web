@@ -25,8 +25,12 @@ public class Doctor {
     }
 
 
-
-
+    public Doctor(String name, String lastName, Majors major, Genders gender) {
+        this.name = name;
+        this.lastName = lastName;
+        this.major = major;
+        this.gender = gender;
+    }
 
     public Doctor(String name, String lastName, Majors major, Genders gender, int userId) {
         this.name = Validations.checkNotNull(name, "Name cannot be null");
