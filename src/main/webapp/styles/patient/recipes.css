@@ -1,0 +1,10 @@
+.recipe-container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    background-color: lightblue;
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: large;
+}
