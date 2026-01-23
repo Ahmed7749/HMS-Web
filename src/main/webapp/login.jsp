@@ -30,4 +30,5 @@
     </div>
     <script src="scripts/sharedJS.js"></script>
 </body>
+    <jsp:include page="/components/footer.jsp"/>
 </html>
