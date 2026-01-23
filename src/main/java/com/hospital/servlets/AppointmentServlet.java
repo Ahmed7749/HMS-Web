@@ -52,13 +52,12 @@ public class AppointmentServlet extends HttpServlet {
     }
 
     private void forwardToAppointmentPage(HttpServletRequest req, HttpServletResponse resp, String errorMessage, String successMessage) throws ServletException, IOException{
-        HttpSession session = req.getSession(false);
-        if(errorMessage != null){
-            session.setAttribute("error", errorMessage);
-        } else if(successMessage != null){
-            session.setAttribute("success", successMessage);
+        if (errorMessage != null) {
+            req.setAttribute("error", errorMessage);
+        } else if (successMessage != null) {
+            req.setAttribute("success", successMessage);
         }
-        req.getRequestDispatcher("/patient/appointments.jsp").forward(req,resp);
+        req.getRequestDispatcher("/patient/appointments.jsp").forward(req, resp);
     }
 
 }
