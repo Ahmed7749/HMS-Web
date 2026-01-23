@@ -41,8 +41,8 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
             switch(user.getRole().toString().toLowerCase()){
-                case "admin" -> resp.sendRedirect("admin/dashboard.jsp");
-                case "doctor" -> resp.sendRedirect("doctor/schedule.jsp");
+                case "admin" -> resp.sendRedirect("admin/home.jsp");
+                case "doctor" -> resp.sendRedirect("doctor/home.jsp");
                 case "patient" -> resp.sendRedirect("patient/home.jsp");
                 default -> {
                     req.setAttribute("error", "Invalid Username or Password");
