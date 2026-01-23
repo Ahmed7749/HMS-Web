@@ -24,9 +24,14 @@
     color: white;
 }
 
+.logo{
+    background: transparent;
+    height: 100px;
+}
+
 .middle-side{
     display: flex;
-    width: 800px;
+    width: 1000px;
     column-gap: 90px;
     justify-content: center;
 }
@@ -47,17 +52,23 @@
     display: flex;
     position: relative;
     flex-direction: column;
+    row-gap: 50px;
     margin-right: 12px;
+}
+
+.welcome-message{
     font-size: 20px;
+    margin-top: -20px;
 }
 
 .logout-click{
     text-decoration: none;
     position: absolute;
     right: 65px;
-    bottom: -10px;
+    bottom: -30px;
     color: darkblue;
     transition: 0.12s;
+    font-size: 20px;
 }
 
 .logout-click:hover{
