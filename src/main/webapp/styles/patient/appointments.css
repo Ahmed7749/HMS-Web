@@ -70,3 +70,20 @@
     cursor: pointer;
     translate: 0 -2px;
 }
+
+
+.delete-btn{
+    background-color: red;
+    color: white;
+    border:none;
+    border-radius: 30px;
+    width: 300px;
+    padding: 20px;
+    transition: 0.25s;
+}
+
+.delete-btn:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: #d30000;
+}
