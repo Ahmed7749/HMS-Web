@@ -46,4 +46,5 @@
         </main>
         <script src="${pageContext.request.contextPath}/scripts/sharedJS.js"></script>
     </body>
+    <jsp:include page="/components/footer.jsp"/>
 </html>
