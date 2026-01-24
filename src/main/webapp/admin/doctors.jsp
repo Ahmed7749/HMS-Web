@@ -14,6 +14,10 @@
 
         <h1 class="page-title">Medical Staff Directory</h1>
 
+        <c:if test="${not empty error}">
+            <div id="temp-message">${error}</div>
+            <a class="register position" href="${pageContext.request.contextPath}/admin/registerDoctor">Register a doctor</a></div>
+        </c:if>
         <div class="card-container">
             <c:forEach items="${doctorList}" var="doctor">
 
