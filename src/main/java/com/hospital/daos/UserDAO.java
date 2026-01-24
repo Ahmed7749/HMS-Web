@@ -31,4 +31,9 @@ public class UserDAO extends GenericDAO{
 
         return executeQueryList(sql, UserSupplier::getUserViaResultSet);
     }
+
+    public boolean deleteUser(int userId){
+        String sql = "DELETE FROM users WHERE id = ?";
+        return executeUpdate(sql, userId);
+    }
 }
