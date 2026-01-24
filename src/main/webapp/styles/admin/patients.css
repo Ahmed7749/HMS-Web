@@ -1,0 +1,117 @@
+.main-container {
+    padding: 40px;
+    background-color: #f4f6f9;
+    min-height: 80vh;
+}
+
+.page-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.patient-row {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-left: 6px solid #28a745;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.patient-row:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.patient-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #e8f5e9;
+    color: #28a745;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.patient-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.patient-meta {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    gap: 15px;
+}
+
+.meta-item {
+    background-color: #f8f9fa;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.action-area {
+    margin-left: 20px;
+}
+
+.delete-btn {
+    background-color: white;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+#temp-message{
+    display: flex;
+    margin:auto;
+    margin-bottom: 20px;
+    text-align: center;
+    background: #ff4d4d;
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+    justify-content: center;
+    color: white;
+}
