@@ -101,3 +101,37 @@
     background-color: #ff4d4d;
     color: white;
 }
+
+#temp-message{
+    display: flex;
+    margin:auto;
+    margin-bottom: 20px;
+    text-align: center;
+    background: #ff4d4d;
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+    justify-content: center;
+    color: white;
+}
+
+
+.register{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    background-color: lightgreen;
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 20px;
+    transition: 0.25s;
+    text-decoration: none;
+    color: white;
+}
+
+
+.register:hover{
+    background-color: #7aea7a;
+}
