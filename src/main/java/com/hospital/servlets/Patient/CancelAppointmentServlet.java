@@ -33,10 +33,9 @@ public class CancelAppointmentServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
-        String appointmentId = req.getParameter("appointmentId");
-        if(appointmentId != null) {
-            int id = Integer.parseInt(appointmentId);
-            boolean deleted = appointmentDAO.deleteAppointment(id);
+        int appointmentId = fetchAppointmentId(req);
+        if(appointmentId > 0) {
+            boolean deleted = appointmentDAO.deleteAppointment(appointmentId);
             if(deleted) {
                 req.getSession().setAttribute("success", "Appointment deleted successfully!");
             } else {
@@ -46,18 +45,16 @@ public class CancelAppointmentServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/patient/appointments");
     }
 
+    private int fetchAppointmentId(HttpServletRequest req){
+        String appointmentId = req.getParameter("appointmentId");
+        if(appointmentId == null){
+            return -1;
+        }
+        return Integer.parseInt(appointmentId);
+    }
+
     private User getAuthenticatedUser(HttpServletRequest req) {
         HttpSession session = req.getSession(false);
         return (session != null) ? (User) session.getAttribute("user") : null;
-    }
-
-    private void forwardToAppointmentPage(HttpServletRequest req, HttpServletResponse resp, String errorMessage, String successMessage) throws ServletException, IOException{
-        HttpSession session = req.getSession(false);
-        if(errorMessage != null){
-            session.setAttribute("error", errorMessage);
-        } else if(successMessage != null){
-            session.setAttribute("success", successMessage);
-        }
-        req.getRequestDispatcher("/patient/appointments.jsp").forward(req,resp);
     }
 }
