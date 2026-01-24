@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/admin/doctors")
-public class ManageDoctorsServlet extends HttpServlet {
+public class ViewDoctorsServlet extends HttpServlet {
     private DoctorDAO doctorDAO;
 
     @Override

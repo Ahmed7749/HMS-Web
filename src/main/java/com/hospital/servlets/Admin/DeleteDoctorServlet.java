@@ -39,9 +39,9 @@ public class DeleteDoctorServlet extends HttpServlet {
 
     private int fetchDoctorId(HttpServletRequest req) {
         try {
-            String idParam = req.getParameter("doctorId");
-            if (idParam != null) {
-                return Integer.parseInt(idParam);
+            String id = req.getParameter("doctorId");
+            if (id != null) {
+                return Integer.parseInt(id);
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
