@@ -46,6 +46,6 @@
     </main>
 
     <jsp:include page="/components/footer.jsp"/>
-
+    <script src="${pageContext.request.contextPath}/scripts/sharedJS.js"></script>
 </body>
 </html>
