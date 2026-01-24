@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/login.css">
     <title>Log in page</title>
 </head>
-<body>
     <jsp:include page="/components/header.jsp" />
+<body>
+
     <div class="login-card">
         <form action="login" method="post">
             <h1>Log in</h1>

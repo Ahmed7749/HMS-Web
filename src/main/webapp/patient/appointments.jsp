@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/patient/appointments.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
 </head>
-<body>
     <jsp:include page="/components/header.jsp" />
+<body>
+
     <main class="container">
         <c:if test="${not empty error}">
             <div id="temp-message">${error}</div>
@@ -28,7 +29,6 @@
             </c:forEach>
         </div>
     </main>
-    <script src="${pageContext.request.contextPath}/scripts/sharedJS.js"></script>
 </body>
     <jsp:include page="/components/footer.jsp"/>
 </html>

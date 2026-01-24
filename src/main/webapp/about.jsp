@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/about.css">
 </head>
+    <jsp:include page="/components/header.jsp" />
 <body>
 
-<jsp:include page="/components/header.jsp" />
+
 
 <div class="about-page-wrapper">
 
@@ -64,8 +65,6 @@
     </section>
 
 </div>
-
-    <jsp:include page="/components/footer.jsp" />
-
 </body>
+    <jsp:include page="/components/footer.jsp" />
 </html>

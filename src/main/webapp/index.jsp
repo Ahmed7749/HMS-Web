@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/index.css">
 </head>
+    <jsp:include page="/components/header.jsp" />
 <body>
 
-<jsp:include page="/components/header.jsp" />
+
 
 <header class="hero-banner">
     <div class="hero-content">
@@ -41,6 +42,6 @@
         <p class="card-description">Your medical history is encrypted and accessible only to you and your assigned doctors.</p>
     </div>
 </section>
-    <jsp:include page="/components/footer.jsp"/>
 </body>
+    <jsp:include page="/components/footer.jsp"/>
 </html>

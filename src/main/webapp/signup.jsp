@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/signup.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
 </head>
-<body>
     <jsp:include page="/components/header.jsp" />
+<body>
+
     <div class="signup-card">
 
         <form action="signup" method="post">

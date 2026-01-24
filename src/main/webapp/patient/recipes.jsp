@@ -5,8 +5,8 @@
     <title>Recipes</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/patient/recipes.css">
 </head>
-<body>
     <jsp:include page="/components/header.jsp" />
+<body>
     <main class="main-container">
         <c:if test="${not empty error}">
             <div class="error-message">${error}</div>

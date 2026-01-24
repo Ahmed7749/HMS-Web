@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/patient/home.css">
 </head>
-<body>
     <jsp:include page="/components/header.jsp" />
+<body>
+
     <div class="dashboard-grid">
         <div class="card action-card">
             <h2>Book Appointment</h2>

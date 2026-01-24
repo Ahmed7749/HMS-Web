@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin/registerDoctor.css">
 </head>
+    <jsp:include page="/components/header.jsp" />
 <body>
-<jsp:include page="/components/header.jsp" />
+
 
 <div class="register-card">
     <form action="${pageContext.request.contextPath}/admin/registerDoctor" method="post">
@@ -59,6 +60,7 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/scripts/sharedJS.js"></script>
-<jsp:include page="/components/footer.jsp"/>
+
 </body>
+    <jsp:include page="/components/footer.jsp"/>
 </html>

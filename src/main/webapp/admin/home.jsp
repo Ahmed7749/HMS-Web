@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin/adminHome.css">
 </head>
+    <jsp:include page="/components/header.jsp" />
 <body>
 
-<jsp:include page="/components/header.jsp" />
+
 
 <main class="admin-container">
 
@@ -42,8 +43,6 @@
     </section>
 
 </main>
-
-<jsp:include page="/components/footer.jsp" />
-
 </body>
+    <jsp:include page="/components/footer.jsp" />
 </html>

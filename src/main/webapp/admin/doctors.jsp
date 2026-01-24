@@ -6,10 +6,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin/doctors.css">
 </head>
-<body>
-
     <jsp:include page="/components/header.jsp"/>
-
+<body>
     <main class="main-container">
 
         <h1 class="page-title">Medical Staff Directory</h1>
@@ -42,10 +40,7 @@
                 </div>
             </c:forEach>
         </div>
-
     </main>
-
-    <jsp:include page="/components/footer.jsp"/>
-    <script src="${pageContext.request.contextPath}/scripts/sharedJS.js"></script>
 </body>
+    <jsp:include page="/components/footer.jsp"/>
 </html>
