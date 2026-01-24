@@ -51,8 +51,8 @@ public class PatientDAO extends GenericDAO{
         return executeQueryList(sql, PatientSupplier::getPatientViaResultSet);
     }
 
-    public boolean deletePatientById(Patient patient){
+    public boolean deletePatientById(int id){
         String sql = "DELETE FROM patients WHERE id = ?";
-        return executeUpdate(sql, patient.getId());
+        return executeUpdate(sql, id);
     }
 }
