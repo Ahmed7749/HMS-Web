@@ -24,6 +24,11 @@ public class ManageDoctorsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Doctor> doctorList = doctorDAO.getListOfDoctors();
+        if(doctorList.isEmpty()){
+            req.setAttribute("error", "There are no doctors ): ");
+            req.getRequestDispatcher("/admin/doctors.jsp").forward(req,resp);
+            return;
+        }
         req.setAttribute("doctorList", doctorList);
         req.getRequestDispatcher("/admin/doctors.jsp").forward(req,resp);
     }
