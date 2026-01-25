@@ -32,7 +32,7 @@
 .middle-side{
     display: flex;
     width: 1000px;
-    column-gap: 90px;
+    column-gap: 50px;
     justify-content: center;
 }
 
@@ -44,8 +44,10 @@
 }
 .middle-side a:hover{
     color: black;
+    cursor: pointer;
+    translate: 0 -2px;
+    padding: 6px;
     background-color: white;
-    padding: 30px;
 }
 
 .right-side{
