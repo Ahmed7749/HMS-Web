@@ -1,0 +1,144 @@
+.main-container {
+    padding: 40px;
+    background-color: #f8f9fa;
+    min-height: 80vh;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.welcome-title {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.date-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.agenda-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.appointment-card {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    border-left: 5px solid #17a2b8; /* Teal accent for Doctors */
+}
+
+.appointment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.time-column {
+    background-color: #e3f2fd;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-right: 1px solid #eee;
+}
+
+.time-display {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0277bd;
+}
+
+.date-display {
+    font-size: 0.85rem;
+    color: #546e7a;
+    margin-top: 5px;
+}
+
+.details-column {
+    flex: 1;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patient-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.patient-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.patient-meta {
+    font-size: 0.95rem;
+    color: #666;
+    display: flex;
+    gap: 10px;
+}
+
+.meta-badge {
+    background-color: #f1f3f5;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.action-column {
+    padding-left: 20px;
+}
+
+.cancel-btn {
+    background-color: white;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 12px;
+    color: #999;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+#success-msg {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #c3e6cb;
+}
