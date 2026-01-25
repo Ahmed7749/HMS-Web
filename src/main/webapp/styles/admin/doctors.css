@@ -60,6 +60,22 @@
     margin-bottom: 5px;
 }
 
+
+.doctor-username {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.password-text {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: normal;
+}
+
 .doctor-gender {
     font-size: 0.9rem;
     color: #888;
@@ -102,9 +118,9 @@
     color: white;
 }
 
-#temp-message{
+#temp-message {
     display: flex;
-    margin:auto;
+    margin: auto;
     margin-bottom: 20px;
     text-align: center;
     background: #ff4d4d;
@@ -115,8 +131,7 @@
     color: white;
 }
 
-
-.register{
+.register {
     display: flex;
     margin: auto;
     justify-content: center;
@@ -131,7 +146,6 @@
     color: white;
 }
 
-
-.register:hover{
+.register:hover {
     background-color: #7aea7a;
 }
