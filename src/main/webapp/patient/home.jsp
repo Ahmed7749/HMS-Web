@@ -18,7 +18,7 @@
         <div class="card info-card">
             <h2>My Appointments</h2>
             <p>View upcoming visits and history.</p>
-            <a href="${pageContext.request.contextPath}/patient/appointments.jsp" class="btn">View All</a>
+            <a href="${pageContext.request.contextPath}/patient/appointments" class="btn">View All</a>
         </div>
         <div class="card info-card">
             <h2>Prescriptions</h2>
