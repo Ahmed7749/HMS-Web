@@ -83,4 +83,9 @@ public class AppointmentDAO extends GenericDAO{
                 rs.getString("major")
         ), patientId);
     }
+
+    public List<Appointment> getAppointmentsByDoctorId(int doctorId){
+        String sql = "SELECT * FROM appointments WHERE doctor_id = ? ORDER BY appointment_date ASC, appointment_time ASC";
+        return executeQueryList(sql, AppointmentSupplier::getAppointmentViaResultSet, doctorId);
+    }
 }
