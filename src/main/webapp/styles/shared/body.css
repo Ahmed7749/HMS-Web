@@ -4,3 +4,10 @@ body{
     padding-bottom: 500px;
     background-color: aliceblue;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 140px;
+        padding-bottom: 100px;
+    }
+}

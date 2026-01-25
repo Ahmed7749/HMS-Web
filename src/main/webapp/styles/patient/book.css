@@ -45,3 +45,12 @@
 .form-holder button:hover {
     background-color: #218838;
 }
+
+
+@media (max-width: 480px) {
+    .form-holder {
+        width: 90%;
+        margin: 30px auto;
+        padding: 20px;
+    }
+}

@@ -58,3 +58,28 @@
 .footer-link {
     color: #adb5bd;
 }
+
+@media (max-width: 768px) {
+    .site-footer {
+        height: auto;
+        flex-direction: column;
+        padding: 30px 20px;
+        text-align: center;
+        gap: 30px;
+        position: relative;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-section {
+        margin-right: 0;
+        align-items: center;
+    }
+
+    .footer-text {
+        max-width: 100%;
+    }
+}

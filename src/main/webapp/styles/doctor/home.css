@@ -142,3 +142,36 @@
     text-align: center;
     border: 1px solid #c3e6cb;
 }
+
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 15px;
+    }
+    .appointment-card {
+        flex-direction: column;
+    }
+    .time-column {
+        min-width: auto;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+    .details-column {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+    .action-column {
+        padding-left: 0;
+    }
+    .cancel-btn {
+        width: 100%;
+    }
+    #success-msg {
+        width: 90%;
+    }
+}

@@ -90,3 +90,16 @@ select {
 .gender-label:hover {
     border-color: #aaa;
 }
+
+
+@media (max-width: 768px) {
+    .register-card {
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .gender-info {
+        flex-direction: column;
+    }
+}

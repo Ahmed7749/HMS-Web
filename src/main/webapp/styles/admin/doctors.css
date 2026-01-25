@@ -149,3 +149,17 @@
 .register:hover {
     background-color: #7aea7a;
 }
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 15px;
+    }
+
+    .register, #temp-message {
+        width: 90%;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}

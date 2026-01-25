@@ -121,3 +121,31 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+@media (max-width: 768px) {
+    .about-page-wrapper {
+        margin-top: 60px;
+        padding-bottom: 60px;
+    }
+    .about-hero-section {
+        padding: 60px 20px;
+    }
+    .about-title {
+        font-size: 2rem;
+        margin-top: 0;
+    }
+    .mission-vision-container {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 30px;
+    }
+    .stats-bar {
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px 20px;
+    }
+    .team-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}

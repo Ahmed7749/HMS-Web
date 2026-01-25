@@ -98,3 +98,34 @@
     translate: 0 -2px;
     color: #00006a;
 }
+
+@media (max-width: 768px) {
+    .header {
+        height: auto;
+        flex-direction: column;
+        padding: 15px 0;
+        position: relative;
+    }
+
+    .left-side, .middle-side, .right-side {
+        width: 100%;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .middle-side {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .right-side {
+        flex-direction: row;
+        gap: 20px;
+        margin-right: 0;
+    }
+
+    .logout-click {
+        position: static;
+        margin-top: 10px;
+    }
+}

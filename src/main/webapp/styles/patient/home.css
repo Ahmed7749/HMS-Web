@@ -40,3 +40,14 @@
     cursor: pointer;
     background-color: #d9cece;
 }
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
