@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/body.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <header>
         <nav class="header">
             <div class="left-side">
