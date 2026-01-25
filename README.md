@@ -1,4 +1,4 @@
-# Hospital Management System
+# Hospital Management System V3.0
 
 This is a web-based application designed to streamline the operations of "Pure Hearts Hospital." It facilitates the interaction between administrators, doctors, and patients through a centralized platform. The system is built using a raw Java technology stack (Servlets, JSP, JDBC) to demonstrate a deep understanding of core web development concepts and the MVC architecture without relying on heavy frameworks.
 
