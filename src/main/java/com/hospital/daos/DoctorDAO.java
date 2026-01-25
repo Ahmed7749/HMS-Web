@@ -61,4 +61,10 @@ public class DoctorDAO extends GenericDAO{
         String sql = "SELECT * FROM doctors";
         return executeQueryList(sql, DoctorSupplier::getDoctorViaResultSet);
     }
+
+
+    public Optional<Doctor> getDoctorByUserId(int userId){
+        String sql = "SELECT * FROM doctors WHERE user_id = ?";
+        return executeQuerySingle(sql, DoctorSupplier::getDoctorViaResultSet, userId);
+    }
 }
