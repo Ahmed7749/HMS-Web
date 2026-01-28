@@ -20,7 +20,7 @@
             <div id="temp-message">${sessionScope.AddedMessage}</div>
             <c:remove var="AddedMessage" scope="session"/>
         </c:if>
-        <form action="${pageContext.request.contextPath}/patient/book" method="post">
+        <form action="${pageContext.request.contextPath}/patient/book" method="post" onsubmit="const btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.innerText='Booking...';">
             <h2>Book Your Visit</h2>
 
             <label for="doctor">Choose a Doctor:</label>
