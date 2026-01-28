@@ -25,6 +25,9 @@
                         <a href="${pageContext.request.contextPath}/admin/patients">View patients</a>
                         <a href="${pageContext.request.contextPath}/admin/home.jsp">Home page</a>
                     </c:when>
+                    <c:when test="${sessionScope.user.role eq 'DOCTOR'}">
+                        <a href="${pageContext.request.contextPath}/doctor/home">Your schedule</a>
+                    </c:when>
                     <c:otherwise></c:otherwise>
                 </c:choose>
             </div>
