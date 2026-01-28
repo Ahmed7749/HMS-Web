@@ -48,7 +48,7 @@
         <div class="team-grid">
             <div class="team-card">
                 <div class="member-role">Chief Medical Officer</div>
-                <div class="member-name">Dr. Sarah khalid</div>
+                <div class="member-name">Dr. Abdulmajeed Salem</div>
                 <p>Leading our clinical strategy with over 20 years of experience in cardiology.</p>
             </div>
             <div class="team-card">
