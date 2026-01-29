@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.time.Year" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/shared/footer.css">
@@ -18,6 +19,24 @@
         <a href="${pageContext.request.contextPath}/index.jsp" class="footer-link">Home</a>
         <a href="${pageContext.request.contextPath}/login" class="footer-link">Login</a>
         <a href="${pageContext.request.contextPath}/signup" class="footer-link">Signup</a>
+        <c:choose>
+          <c:when test="${sessionScope.user.role eq 'PATIENT'}">
+            <a class="footer-link" href="${pageContext.request.contextPath}/patient/book">Book now !</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/patient/appointments">Your appointments</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/patient/recipes.jsp">Your doctor recipes</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/patient/home.jsp">Home page</a>
+          </c:when>
+          <c:when test="${sessionScope.user.role eq 'ADMIN'}">
+            <a class="footer-link" href="${pageContext.request.contextPath}/admin/registerDoctor">Register doctor</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/admin/doctors">View doctors</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/admin/patients">View patients</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/admin/home.jsp">Home page</a>
+          </c:when>
+          <c:when test="${sessionScope.user.role eq 'DOCTOR'}">
+            <a class="footer-link" href="${pageContext.request.contextPath}/doctor/home">Your schedule</a>
+          </c:when>
+          <c:otherwise></c:otherwise>
+        </c:choose>
       </div>
     </div>
 
