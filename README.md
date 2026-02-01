@@ -47,7 +47,7 @@ The project follows the Model-View-Controller (MVC) architectural pattern:
 * MySQL Server
 
 ### Database Configuration
-1.  Create a MySQL database named `hms`.
+1.  Create a MySQL database named `hospitalmanagement`.
 2.  Import the schema script provided in the `sql/` directory.
 3.  **Configuration:** This application uses environment variables for database credentials to ensure security. You must set the following environment variables on your machine:
     * `DB_URL`: `jdbc:mysql://localhost:3306/your_database_name`
