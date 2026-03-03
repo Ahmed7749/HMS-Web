@@ -5,4 +5,6 @@ CREATE TABLE IF NOT EXISTS patients(
     birth_date DATE NOT NULL,
     middle_name VARCHAR(255),
     last_name VARCHAR(255) NOT NULL,
+    user_id int NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
