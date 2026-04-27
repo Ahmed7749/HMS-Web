@@ -12,10 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @WebServlet("/admin/doctors")
 public class ViewDoctorsServlet extends HttpServlet {
@@ -31,22 +30,44 @@ public class ViewDoctorsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Doctor> doctorList = doctorDAO.getListOfDoctors();
-        Map<Integer, User> userMap = new HashMap<>();
-
         if (doctorList != null && !doctorList.isEmpty()) {
-            for (Doctor doc : doctorList) {
-                int userId = doc.getUserId();
-                if (userId > 0) {
-                    Optional<User> userOpt = userDAO.getUserById(userId);
-                    userOpt.ifPresent(user -> userMap.put(doc.getId(), user));
-                }
-            }
+            Map<Integer, User> userMap = buildFinalMap(mapUsersList(getUsersByIds(doctorList)), doctorList);
+            req.setAttribute("doctorList", doctorList);
+            req.setAttribute("userMap", userMap);
         } else {
             req.setAttribute("error", "There are no doctors registered.");
         }
 
-        req.setAttribute("doctorList", doctorList);
-        req.setAttribute("userMap", userMap);
+
         req.getRequestDispatcher("/admin/doctors.jsp").forward(req, resp);
+    }
+
+    private Set<Integer> getUserIds(List<Doctor> doctorList){
+        return doctorList.stream()
+                .map(Doctor::getUserId)
+                .filter(id ->  id > 0)
+                .collect(Collectors.toSet());
+    }
+
+
+    private List<User> getUsersByIds(List<Doctor> doctorList){
+        return userDAO.getUsersByIds(getUserIds(doctorList));
+    }
+
+
+    private Map<Integer, User> mapUsersList(List<User> users){
+        return users.stream().collect(Collectors.toMap( User::getId, u -> u));
+    }
+
+
+    private Map<Integer, User> buildFinalMap(Map<Integer, User> usersById, List<Doctor> docList) {
+        Map<Integer, User> finalMap = new HashMap<>();
+        for (Doctor doc : docList) {
+            User user = usersById.get(doc.getUserId());
+            if (user != null) {
+                finalMap.put(doc.getId(), user);
+            }
+        }
+        return finalMap;
     }
 }
