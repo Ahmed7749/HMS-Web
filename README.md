@@ -47,7 +47,7 @@ The project follows the Model-View-Controller (MVC) architectural pattern:
 * MySQL Server
 
 ### Database Configuration
-1.  Create a MySQL database named `hms`.
+1.  Create a MySQL database named `hospitalmanagement`.
 2.  Import the schema script provided in the `sql/` directory.
 3.  **Configuration:** This application uses environment variables for database credentials to ensure security. You must set the following environment variables on your machine:
     * `DB_URL`: `jdbc:mysql://localhost:3306/your_database_name`
@@ -60,10 +60,11 @@ The project follows the Model-View-Controller (MVC) architectural pattern:
 3.  Build the artifact (WAR file).
 4.  Run the server and access the application at `http://localhost:8080/HMS-Web`.
 
-## Future Improvements
+## Future Improvements in version3.1
 * **Password Encryption:** Implement hashing (e.g., BCrypt) to securely store user passwords.
 * **Email Notifications:** Automated email confirmation for booked appointments.
 * **Medical Records:** Allow doctors to upload prescription files for patients.
+* **Conncurrency and multithreading:** Will try to optimize and implement such complex topic to demonstrate the full understanding of conncurency and multithreading.
 
 ## What i have learned ?
 * **Your url's should be passed to the servlet not the page (frontend) this error happened to me a lot and thank god i know it now**
@@ -82,7 +83,7 @@ The project follows the Model-View-Controller (MVC) architectural pattern:
 *  answer: in the early phases of this project i just wanted to get used to the enviroment of servlet and jsp. Therefore i didn't focus much in the SRP. However, in the upcoming versions i will refactor it
 *  **Why there are no nurses ?**
 *  answer: well. I thought of adding nurses yet i saw it unrealistic because all that matters for a patient are the doctors.
-  
+
 
 ## License
 This project is open-source and available for educational purposes.

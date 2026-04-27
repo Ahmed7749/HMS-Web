@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS hospital_db;
-USE hospital_db;
+CREATE DATABASE IF NOT EXISTS hospitalmanagement;
+USE hospitalmanagement;
 CREATE TABLE IF NOT EXISTS patients(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS doctors(
     last_name VARCHAR(255) NOT NULL,
     major ENUM('SURGEON', 'GENERAL') NOT NULL,
     gender ENUM('FEMALE','MALE') NOT NULL,
+    user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE TABLE IF NOT EXISTS appointments(
