@@ -31,8 +31,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        if(username == null || password == null){
-            resp.sendRedirect("login.jsp?error=Wrong data");
+        if(falseUser(username, password)){
+            redirectInvalidUser(resp);
             return;
         }
         Optional<User> foundUser = userDAO.loggedIn(username,password);
@@ -40,7 +40,30 @@ public class LoginServlet extends HttpServlet {
             User user = foundUser.get();
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            switch(user.getRole().toString().toLowerCase()){
+            loginUser(user, session, req,resp);
+        } else{
+            req.setAttribute("error", "Invalid Username or Password");
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        }
+    }
+
+    private boolean falseUser(String username, String password){
+        return (username == null || password == null);
+    }
+
+
+    private void redirectInvalidUser(HttpServletResponse resp){
+        try {
+            resp.sendRedirect("login.jsp?error=Wrong data");
+        } catch (IOException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loginUser(User user, HttpSession session, HttpServletRequest req, HttpServletResponse resp){
+        try {
+            switch (user.getRole().toString().toLowerCase()) {
                 case "admin" -> resp.sendRedirect("admin/home.jsp");
                 case "doctor" -> resp.sendRedirect("doctor/home");
                 case "patient" -> resp.sendRedirect("patient/home.jsp");
@@ -49,9 +72,9 @@ public class LoginServlet extends HttpServlet {
                     req.getRequestDispatcher("login.jsp").forward(req, resp);
                 }
             }
-        } else{
-            req.setAttribute("error", "Invalid Username or Password");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        } catch (IOException | ServletException e){
+            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 }
