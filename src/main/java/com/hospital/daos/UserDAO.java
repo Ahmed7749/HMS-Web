@@ -5,6 +5,8 @@ import com.hospital.utils.UserSupplier;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserDAO extends GenericDAO{
 
@@ -40,5 +42,18 @@ public class UserDAO extends GenericDAO{
     public Optional<User> getUserById(int userId){
         String sql = "SELECT * FROM users WHERE id = ?";
         return executeQuerySingle(sql, UserSupplier::getUserViaResultSet, userId);
+    }
+
+    public List<User> getUsersByIds(Set<Integer> userIds){
+        String mappedIds = getMappedIds(userIds);
+        String sql = "SELECT * FROM users WHERE id IN (" + mappedIds +")";
+        return executeQueryList(sql, UserSupplier::getUserViaResultSet, userIds.toArray());
+    }
+
+    //helper method
+    private String getMappedIds(Set<Integer> userIds){
+        return userIds.stream()
+                .map(id -> "?")
+                .collect(Collectors.joining(", "));
     }
 }
