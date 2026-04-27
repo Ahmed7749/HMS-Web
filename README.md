@@ -77,7 +77,7 @@ The project follows the Model-View-Controller (MVC) architectural pattern:
 * **Why didn't you jsut use spring to make this project since it's more modern ?** 
 *  answer: I did this project to prove my fundementals and to strengthen them
 *  **Why didn't you add encryption for the password ?**
-*  answer: TBH i thought i'd be a cool think to learn in the upcoming version of this servlet edition (V3.1)
+*  answer: TBH i thought i'd be a cool thing to learn in the upcoming version of this servlet edition (V3.1)
 *  **Why some methods seems unclean ? (messy code)**
 *  answer: in the early phases of this project i just wanted to get used to the enviroment of servlet and jsp. Therefore i didn't focus much in the SRP. However, in the upcoming versions i will refactor it
 *  **Why there are no nurses ?**
