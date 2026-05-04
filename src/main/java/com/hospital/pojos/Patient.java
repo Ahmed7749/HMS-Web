@@ -12,15 +12,17 @@ public class Patient{
     private String middleName;
     private String lastName;
     private int userId;
+    private String email;
 
-    public Patient(int id, String name, Genders gender, LocalDate birthDate, String middleName, String lastName, int userId) {
+    public Patient(int id, String name, Genders gender, LocalDate birthDate, String middleName, String lastName, int userId, String email) {
+        this.name = name;
         this.id = id;
-        this.name = Validations.checkNotNull(name,"Null name has been entered");
-        this.gender = Validations.checkNotNull(gender, "Wrong gender has been Entered");
-        this.birthDate = Validations.checkNotNull(birthDate, "The user must be born at a date..");
+        this.gender = gender;
+        this.birthDate = birthDate;
         this.middleName = middleName;
-        this.lastName = Validations.checkNotNull(lastName, "User must have a last name");
+        this.lastName = lastName;
         this.userId = userId;
+        this.email = email;
     }
 
     public Patient(String name,
@@ -28,16 +30,16 @@ public class Patient{
                    LocalDate birthDate,
                    String middleName,
                    String lastName,
-                   int userId) {
+                   int userId,
+                   String email) {
         this.name = Validations.checkNotNull(name, "User must have a name");
         this.gender = Validations.checkNotNull(gender, "They are only 2 genders. Pick one");
         this.birthDate = Validations.checkNotNull(birthDate, "User must be born");
         this.middleName = middleName;
         this.lastName = Validations.checkNotNull(lastName, "User must have a family name");
         this.userId = userId;
+        this.email = email;
     }
-
-
     public String getName() {
         return name;
     }
@@ -94,11 +96,22 @@ public class Patient{
         this.userId = userId;
     }
 
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         System.out.println("-".repeat(110));
         return " %12s %18s | %12s %19d | %12s %12s  \n %12s %12s | %12s %10s | %20s %10s \n%s\n".formatted("Patient's name: ",name,"Patient's id: ",id,"Patient's gender: ",gender.toString().toLowerCase(),"Patient's birth date: ",birthDate,"Patient's middle name: ",middleName,"Patient's last name: ",lastName, "-".repeat(110));
     }
+
+
 
 
 }
