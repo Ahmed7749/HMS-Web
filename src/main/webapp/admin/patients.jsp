@@ -37,6 +37,7 @@
                         <div class="patient-meta">
                             <span class="meta-item">Gender: ${patient.gender}</span>
                             <span class="meta-item">Born: ${patient.birthDate}</span>
+                            <span class="meta-item">Email: ${patient.email}</span>
                         </div>
                         <div class="patient-user-details">
                             <c:if test="${not empty userAccount}">
