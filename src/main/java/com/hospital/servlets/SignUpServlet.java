@@ -41,6 +41,7 @@ public class SignUpServlet extends HttpServlet {
         String gender = req.getParameter("gender");
         String birthDate = req.getParameter("birthdate");
         String lastName = req.getParameter("lastName");
+        String email = req.getParameter("email");
         if (userDAO.userExists(username).isPresent()) {
             req.setAttribute("error", "Username already exists!");
             req.getRequestDispatcher("signup.jsp").forward(req, resp);
@@ -49,7 +50,7 @@ public class SignUpServlet extends HttpServlet {
         User newUser = new User(username, password, Roles.PATIENT);
         int newUserId = userDAO.addUser(newUser);
         if (newUserId > 0) {
-            Patient newPatient = new Patient(name, Genders.valueOf(gender.toUpperCase()), LocalDate.parse(birthDate), middleName, lastName, newUserId);
+            Patient newPatient = new Patient(name, Genders.valueOf(gender.toUpperCase()), LocalDate.parse(birthDate), middleName, lastName, newUserId, email);
             newPatient.setUserId(newUserId);
             patientDAO.addPatientToDB(newPatient);
             resp.sendRedirect("login.jsp?success=Account Created!");
