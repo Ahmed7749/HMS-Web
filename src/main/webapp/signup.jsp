@@ -26,6 +26,7 @@
                 <p>Account info: </p>
                 <input name="username" type="text" placeholder="Enter your username" required>
                 <input name="password" type="password" placeholder="Enter password" required>
+                <input name="email" type="email" placeholder="Enter your email address" required>
             </div>
             <div class="personal-info">
                 <p>Personal Info: </p>
