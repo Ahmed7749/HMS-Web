@@ -16,6 +16,7 @@ public class PatientSupplier {
                 resultSet.getObject("birth_date", LocalDate.class),
                 resultSet.getString("middle_name"),
                 resultSet.getString("last_name"),
-                resultSet.getInt("user_id"));
+                resultSet.getInt("user_id"),
+                resultSet.getString("email"));
     }
 }
