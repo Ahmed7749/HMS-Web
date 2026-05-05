@@ -61,13 +61,6 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private String getUserNameParam(HttpServletRequest req){
-        return req.getParameter("username");
-    }
-
-    private String getPasswordParam(HttpServletRequest req){
-        return req.getParameter("password");
-    }
 
     private boolean falseUser(String username, String password){
         return (username == null || password == null);
@@ -96,9 +89,7 @@ public class LoginServlet extends HttpServlet {
                 case "admin" -> resp.sendRedirect("admin/home.jsp");
                 case "doctor" -> resp.sendRedirect("doctor/home");
                 case "patient" -> resp.sendRedirect("patient/home.jsp");
-                default -> {
-                    invalidCredentials(req,resp);
-                }
+                default -> invalidCredentials(req,resp);
             }
         } catch (IOException | ServletException e){
             e.printStackTrace();
