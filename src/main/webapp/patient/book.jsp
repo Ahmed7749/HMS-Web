@@ -16,17 +16,20 @@
             <div id="temp-message">${error}</div>
             <c:remove var="error" scope="session"/>
         </c:if>
+
         <c:if test="${not empty sessionScope.AddedMessage}">
-            <div id="temp-message">${sessionScope.AddedMessage}</div>
+            <div id="temp-message" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb;">
+                    ${sessionScope.AddedMessage}
+            </div>
             <c:remove var="AddedMessage" scope="session"/>
         </c:if>
+
         <form action="${pageContext.request.contextPath}/patient/book" method="post" onsubmit="const btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.innerText='Booking...';">
             <h2>Book Your Visit</h2>
 
             <label for="doctor">Choose a Doctor:</label>
             <select name="doctorId" id="doctor" required>
                 <option value="" disabled selected>-- Select a Specialist --</option>
-
                 <c:forEach items="${doctorList}" var="doc">
                     <option value="${doc.id}">
                         Dr. ${doc.name} ${doc.lastName} (${doc.major})
