@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -36,13 +37,14 @@ public class SignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        password = getHashedPassword(password);
         String name = req.getParameter("name");
         String middleName = req.getParameter("middleName");
         String gender = req.getParameter("gender");
         String birthDate = req.getParameter("birthdate");
         String lastName = req.getParameter("lastName");
         String email = req.getParameter("email");
-        if (userDAO.userExists(username).isPresent()) {
+        if (userDAO.findByUsername(username).isPresent()) {
             req.setAttribute("error", "Username already exists!");
             req.getRequestDispatcher("signup.jsp").forward(req, resp);
             return;
@@ -58,5 +60,9 @@ public class SignUpServlet extends HttpServlet {
             req.setAttribute("error", "Registration Failed. Database Error.");
             req.getRequestDispatcher("signup.jsp").forward(req, resp);
         }
+    }
+
+    private String getHashedPassword(String password){
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }
