@@ -23,6 +23,18 @@ form input{
     margin-top: -10px
 }
 
+#temp-message {
+    background-color: #fce4e4;
+    color: #cc0033;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #f8b4b4;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
     .login-card, .signup-card {
         width: 90%;
