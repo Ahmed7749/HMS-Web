@@ -41,7 +41,6 @@
                 <div class="doctor-username">
                     <c:if test="${not empty userAccount}">
                         <span>username: ${userAccount.userName}</span>
-                        <span class="password-text">password: ${userAccount.password}</span>
                     </c:if>
                     <c:if test="${empty userAccount}">
                         <span style="color: #dc3545;">No Account</span>
