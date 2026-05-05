@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -28,29 +29,57 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         if(falseUser(username, password)){
             redirectInvalidUser(resp);
             return;
         }
-        Optional<User> foundUser = userDAO.loggedIn(username,password);
+        try {
+            evaluateUserLogin(username, password, req, resp);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void evaluateUserLogin(String username, String password, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Optional<User> foundUser = userDAO.findByUsername(username);
         if(foundUser.isPresent()){
             User user = foundUser.get();
+            if(!verifyPassword(password, user, resp,req)){
+                return;
+            }
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            loginUser(user, session, req,resp);
-        } else{
+            loginUser(user, session, req, resp);
+
+        } else {
             req.setAttribute("error", "Invalid Username or Password");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
+    }
+
+    private String getUserNameParam(HttpServletRequest req){
+        return req.getParameter("username");
+    }
+
+    private String getPasswordParam(HttpServletRequest req){
+        return req.getParameter("password");
     }
 
     private boolean falseUser(String username, String password){
         return (username == null || password == null);
     }
 
+    private boolean verifyPassword(String password, User user, HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {
+        if(!BCrypt.checkpw(password,user.getPassword())) {
+            invalidCredentials(req,resp);
+            return false;
+        }
+        return true;
+    }
 
     private void redirectInvalidUser(HttpServletResponse resp){
         try {
@@ -68,13 +97,17 @@ public class LoginServlet extends HttpServlet {
                 case "doctor" -> resp.sendRedirect("doctor/home");
                 case "patient" -> resp.sendRedirect("patient/home.jsp");
                 default -> {
-                    req.setAttribute("error", "Invalid Username or Password");
-                    req.getRequestDispatcher("login.jsp").forward(req, resp);
+                    invalidCredentials(req,resp);
                 }
             }
         } catch (IOException | ServletException e){
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    private void invalidCredentials(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("error", "Invalid Username or Password");
+        req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 }
