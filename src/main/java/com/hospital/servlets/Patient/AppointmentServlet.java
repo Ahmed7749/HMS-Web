@@ -25,24 +25,40 @@ public class AppointmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         User user = getAuthenticatedUser(req);
         HttpSession session = req.getSession(false);
         if(user == null || session == null){
-            resp.sendRedirect("login.jsp?error=SessionExpired");
+            try {
+                resp.sendRedirect("login.jsp?error=SessionExpired");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         int patientId = patientDAO.getPatientIdByUserId(user.getId());
         if(patientId != -1){
             List<PatientAppointmentDTO> appointmentList = appointmentDAO.getAppointmentsWithDoctorInfo(patientId);
             if(appointmentList.isEmpty()){
-                forwardToAppointmentPage(req, resp, "you have no appointments", null);
+                try {
+                    forwardToAppointmentPage(req, resp, "you have no appointments", null);
+                } catch (ServletException | IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else{
                 req.setAttribute("appointmentList", appointmentList);
-                req.getRequestDispatcher("/patient/appointments.jsp").forward(req, resp);
+                try {
+                    req.getRequestDispatcher("/patient/appointments.jsp").forward(req, resp);
+                } catch (ServletException | IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } else{
-            forwardToAppointmentPage(req,resp, "No patient associated with the session", null);
+            try {
+                forwardToAppointmentPage(req,resp, "No patient associated with the session", null);
+            } catch (ServletException | IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

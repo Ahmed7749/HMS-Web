@@ -22,15 +22,25 @@ public class CancelAppointmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/appointments.jsp").forward(req,resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
+        try {
+            req.getRequestDispatcher("/appointments.jsp").forward(req,resp);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         User user = getAuthenticatedUser(req);
         if(user == null) {
-            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            try {
+                resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         int appointmentId = fetchAppointmentId(req);
@@ -42,7 +52,11 @@ public class CancelAppointmentServlet extends HttpServlet {
                 req.getSession().setAttribute("error", "Could not delete appointment.");
             }
         }
-        resp.sendRedirect(req.getContextPath() + "/patient/appointments");
+        try {
+            resp.sendRedirect(req.getContextPath() + "/patient/appointments");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private int fetchAppointmentId(HttpServletRequest req){

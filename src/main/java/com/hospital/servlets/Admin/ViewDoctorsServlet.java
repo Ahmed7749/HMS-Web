@@ -28,7 +28,7 @@ public class ViewDoctorsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         List<Doctor> doctorList = doctorDAO.getListOfDoctors();
         if (doctorList != null && !doctorList.isEmpty()) {
             Map<Integer, User> userMap = buildFinalMap(mapUsersList(getUsersByIds(doctorList)), doctorList);
@@ -39,7 +39,11 @@ public class ViewDoctorsServlet extends HttpServlet {
         }
 
 
-        req.getRequestDispatcher("/admin/doctors.jsp").forward(req, resp);
+        try {
+            req.getRequestDispatcher("/admin/doctors.jsp").forward(req, resp);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Set<Integer> getUserIds(List<Doctor> doctorList){

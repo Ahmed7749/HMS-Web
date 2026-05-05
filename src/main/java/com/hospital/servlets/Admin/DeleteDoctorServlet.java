@@ -19,13 +19,13 @@ public class DeleteDoctorServlet extends HttpServlet {
     private UserDAO userDAO;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
         doctorDAO = new DoctorDAO();
         userDAO = new UserDAO();
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
         int doctorId = fetchDoctorId(req);
         if (doctorId > 0) {
             int userId = fetchUserId(doctorId);
@@ -34,7 +34,11 @@ public class DeleteDoctorServlet extends HttpServlet {
                 userDAO.deleteUser(userId);
             }
         }
-        resp.sendRedirect(req.getContextPath() + "/admin/doctors");
+        try {
+            resp.sendRedirect(req.getContextPath() + "/admin/doctors");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private int fetchDoctorId(HttpServletRequest req) {

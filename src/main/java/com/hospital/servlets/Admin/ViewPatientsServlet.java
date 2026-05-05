@@ -21,13 +21,13 @@ public class ViewPatientsServlet extends HttpServlet {
     private PatientDAO patientDAO;
     private UserDAO userDAO;
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config){
         patientDAO = new PatientDAO();
         userDAO = new UserDAO();
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         List<Patient> patientList = patientDAO.getPatientsList();
         if (patientList != null && !patientList.isEmpty()) {
             Map<Integer, User> userMap = buildFinalMap(mapUsersList(getUsersByIds(patientList)), patientList);
@@ -38,7 +38,11 @@ public class ViewPatientsServlet extends HttpServlet {
         }
 
 
-        req.getRequestDispatcher("/admin/patients.jsp").forward(req, resp);
+        try {
+            req.getRequestDispatcher("/admin/patients.jsp").forward(req, resp);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Set<Integer> getUserIds(List<Patient> patientList){

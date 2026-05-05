@@ -23,8 +23,12 @@ public class DoctorRegisterServlet extends HttpServlet {
     private UserDAO userDAO;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/admin/registerDoctor.jsp").forward(req,resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
+        try {
+            req.getRequestDispatcher("/admin/registerDoctor.jsp").forward(req,resp);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -34,11 +38,15 @@ public class DoctorRegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
         User user = getAuthenticatedUser(req);
         HttpSession session = req.getSession(false);
         if(user == null || session == null){
-            resp.sendRedirect(req.getContextPath() + "/login.jsp?error=SessionExpired");
+            try {
+                resp.sendRedirect(req.getContextPath() + "/login.jsp?error=SessionExpired");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         try {
@@ -46,7 +54,11 @@ public class DoctorRegisterServlet extends HttpServlet {
             registered(userId, req, resp);
         } catch (Exception e) {
             e.printStackTrace();
-            redirectToPage(req, resp, "Username already exists! Please choose another.", null);
+            try {
+                redirectToPage(req, resp, "Username already exists! Please choose another.", null);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
