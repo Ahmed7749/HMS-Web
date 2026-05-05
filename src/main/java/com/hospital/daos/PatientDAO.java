@@ -56,4 +56,10 @@ public class PatientDAO extends GenericDAO{
         String sql = "DELETE FROM patients WHERE id = ?";
         return executeUpdate(sql, id);
     }
+
+
+    public Optional<Patient> findByEmail(String email){
+        String sql = "SELECT * FROM patients WHERE email = ? ";
+        return executeQuerySingle(sql, PatientSupplier::getPatientViaResultSet, email);
+    }
 }
