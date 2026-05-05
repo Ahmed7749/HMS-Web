@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -97,7 +98,12 @@ public class DoctorRegisterServlet extends HttpServlet {
     private User getUser(HttpServletRequest req){
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        password = encryptPass(password);
         return new User(username, password, Roles.DOCTOR);
+    }
+
+    private String encryptPass(String password){
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     private void redirectToPage(HttpServletRequest req, HttpServletResponse resp, String error, String success) throws IOException {
