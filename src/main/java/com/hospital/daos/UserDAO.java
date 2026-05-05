@@ -23,7 +23,7 @@ public class UserDAO extends GenericDAO{
     }
 
 
-    public Optional<User> userExists(String username){
+    public Optional<User> findByUsername(String username){
         String sql = "SELECT * FROM users WHERE username = ?";
         return executeQuerySingle(sql, UserSupplier::getUserViaResultSet, username);
     }
