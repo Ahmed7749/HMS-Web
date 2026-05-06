@@ -3,6 +3,7 @@ package com.hospital.servlets.Patient;
 import com.hospital.DTOs.PatientAppointmentDTO;
 import com.hospital.daos.AppointmentDAO;
 import com.hospital.daos.PatientDAO;
+import com.hospital.pojos.Patient;
 import com.hospital.pojos.User;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/patient/appointments")
 public class AppointmentServlet extends HttpServlet {
@@ -36,9 +38,10 @@ public class AppointmentServlet extends HttpServlet {
             }
             return;
         }
-        int patientId = patientDAO.getPatientIdByUserId(user.getId());
-        if(patientId != -1){
-            List<PatientAppointmentDTO> appointmentList = appointmentDAO.getAppointmentsWithDoctorInfo(patientId);
+        Optional<Patient> patientOptional = patientDAO.getPatientByUserId(user.getId());
+        if(patientOptional.isPresent()){
+            Patient patient = patientOptional.get();
+            List<PatientAppointmentDTO> appointmentList = appointmentDAO.getAppointmentsWithDoctorInfo(patient.getId());
             if(appointmentList.isEmpty()){
                 try {
                     forwardToAppointmentPage(req, resp, "you have no appointments", null);
