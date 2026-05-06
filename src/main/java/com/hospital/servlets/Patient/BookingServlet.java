@@ -4,6 +4,7 @@ import com.hospital.daos.AppointmentDAO;
 import com.hospital.daos.DoctorDAO;
 import com.hospital.daos.PatientDAO;
 import com.hospital.pojos.Appointment;
+import com.hospital.pojos.Patient;
 import com.hospital.pojos.User;
 import com.hospital.utils.EmailService;
 import jakarta.servlet.ServletConfig;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 @WebServlet("/patient/book")
 public class BookingServlet extends HttpServlet {
@@ -61,21 +63,23 @@ public class BookingServlet extends HttpServlet {
         LocalDate date = LocalDate.parse(req.getParameter("appointmentDate"));
         LocalTime time = LocalTime.parse(req.getParameter("appointmentTime"));
         int doctorId = Integer.parseInt(req.getParameter("doctorId"));
-        int patientId = patientDAO.getPatientIdByUserId(user.getId());
+        Optional<Patient> patientOptional = patientDAO.getPatientByUserId(user.getId());
+        if(patientOptional.isPresent()) {
+            Patient patient = patientOptional.get();
+            String validationError = validateBookingRules(date, time, doctorId, patient.getId());
+            if (validationError != null) {
+                redirectToBookPage(req, resp, validationError, null);
+                return;
+            }
 
-        String validationError = validateBookingRules(date, time, doctorId, patientId);
-        if (validationError != null) {
-            redirectToBookPage(req, resp, validationError, null);
-            return;
-        }
+            boolean isBooked = appointmentDAO.bookAppointment(new Appointment(date, time, patient.getId(), doctorId));
 
-        boolean isBooked = appointmentDAO.bookAppointment(new Appointment(date, time, patientId, doctorId));
-
-        if (isBooked) {
-            sendConfirmationEmailAsync(patientId, date, time);
-            redirectToBookPage(req, resp, null, "Appointment Booked Successfully. A confirmation email has been sent!");
-        } else {
-            redirectToBookPage(req, resp, "Database error occurred while booking.", null);
+            if (isBooked) {
+                sendConfirmationEmailAsync(patient.getId(), date, time);
+                redirectToBookPage(req, resp, null, "Appointment Booked Successfully. A confirmation email has been sent!");
+            } else {
+                redirectToBookPage(req, resp, "Database error occurred while booking.", null);
+            }
         }
     }
 
