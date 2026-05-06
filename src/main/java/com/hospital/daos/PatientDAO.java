@@ -20,14 +20,12 @@ public class PatientDAO extends GenericDAO{
     }
 
 
-    public int getPatientIdByUserId(int userId) {
-        String sql = "SELECT id FROM patients WHERE user_id = ?";
-        Optional<Integer> foundId = executeQuerySingle(
-                sql,
-                rs -> rs.getInt("id"),
-                userId
-        );
-        return foundId.orElse(-1);
+
+
+    public Optional<Patient> getPatientByUserId(int userId) {
+        String sql = "SELECT * FROM patients WHERE user_id = ?";
+        return executeQuerySingle(sql,PatientSupplier::getPatientViaResultSet, userId);
+
     }
 
     public Optional<Patient> getPatientById(int id){
