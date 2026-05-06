@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DoctorDAO extends GenericDAO{
     public boolean addDoctorToDB(Doctor doctor){
@@ -66,5 +68,18 @@ public class DoctorDAO extends GenericDAO{
     public Optional<Doctor> getDoctorByUserId(int userId){
         String sql = "SELECT * FROM doctors WHERE user_id = ?";
         return executeQuerySingle(sql, DoctorSupplier::getDoctorViaResultSet, userId);
+    }
+
+    public List<Doctor> getDoctorsByIds(Set<Integer> doctorIds){
+        String mappedIds = getMappedIds(doctorIds);
+        String sql = "SELECT * FROM doctors WHERE id IN (" + mappedIds +")";
+        return executeQueryList(sql, DoctorSupplier::getDoctorViaResultSet, doctorIds.toArray());
+    }
+
+
+    private String getMappedIds(Set<Integer> doctorIds){
+        return doctorIds.stream()
+                .map(id -> "?")
+                .collect(Collectors.joining(", "));
     }
 }
