@@ -28,67 +28,84 @@ public class PatientPrescriptionsServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         prescriptionsDAO = new PrescriptionsDAO();
         doctorDAO = new DoctorDAO();
-        patientDAO = new PatientDAO(); // Initialize PatientDAO
+        patientDAO = new PatientDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        // 1. Grab the general User object from the session
         User user = (User) req.getSession().getAttribute("user");
 
-        if (user == null) {
-            try {
-                resp.sendRedirect(req.getContextPath() + "/login");
-                return;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
+        if (user == null) {
+            redirectSafe(req, resp, "/login");
+            return;
+        }
 
         Optional<Patient> patientOptional = patientDAO.getPatientByUserId(user.getId());
-        if(patientOptional.isPresent()) {
-            Patient patient = patientOptional.get();
-            List<Prescription> prescriptionList = prescriptionsDAO.getPrescriptionsListByPatientId(patient.getId());
-            if (prescriptionList != null && !prescriptionList.isEmpty()) {
-                Map<Integer, Doctor> doctorMap = buildFinalMap(mapDoctorsList(getDoctorsByIds(prescriptionList)), prescriptionList);
-                req.setAttribute("prescriptions", prescriptionList);
-                req.setAttribute("doctorMap", doctorMap);
-            } else {
-                req.setAttribute("error", "There are no active prescriptions.");
-            }
 
-            try {
-                req.getRequestDispatcher("/patient/prescriptions.jsp").forward(req, resp);
-            } catch (ServletException | IOException e) {
-                throw new RuntimeException(e);
-            }
+
+        if (patientOptional.isEmpty()) {
+            forwardWithError(req, resp, "Error: No patient profile linked to this account.");
+            return;
         }
+
+        Patient patient = patientOptional.get();
+        List<Prescription> prescriptions = prescriptionsDAO.getPrescriptionsListByPatientId(patient.getId());
+
+
+        if (prescriptions == null || prescriptions.isEmpty()) {
+            forwardWithError(req, resp, "There are no active prescriptions.");
+            return;
+        }
+
+        // Success Path: Attach data and render view
+        req.setAttribute("prescriptions", prescriptions);
+        req.setAttribute("doctorMap", buildPrescriptionDoctorMap(prescriptions));
+        forwardSafe(req, resp, "/patient/prescriptions.jsp");
     }
 
-    private Set<Integer> getDoctorIds(List<Prescription> prescriptionList){
-        return prescriptionList.stream()
+
+
+    private Map<Integer, Doctor> buildPrescriptionDoctorMap(List<Prescription> prescriptions) {
+        Set<Integer> doctorIds = prescriptions.stream()
                 .map(Prescription::getDoctorId)
                 .filter(id -> id > 0)
                 .collect(Collectors.toSet());
-    }
 
-    private List<Doctor> getDoctorsByIds(List<Prescription> prescriptionList){
-        return doctorDAO.getDoctorsByIds(getDoctorIds(prescriptionList));
-    }
+        if (doctorIds.isEmpty()) return new HashMap<>();
 
-    private Map<Integer, Doctor> mapDoctorsList(List<Doctor> doctors){
-        return doctors.stream().collect(Collectors.toMap(Doctor::getId, d -> d));
-    }
+        Map<Integer, Doctor> doctorsById = doctorDAO.getDoctorsByIds(doctorIds).stream()
+                .collect(Collectors.toMap(Doctor::getId, d -> d));
 
-    private Map<Integer, Doctor> buildFinalMap(Map<Integer, Doctor> doctorsById, List<Prescription> prescriptionList) {
         Map<Integer, Doctor> finalMap = new HashMap<>();
-        for (Prescription prescription : prescriptionList) {
-            Doctor doctor = doctorsById.get(prescription.getDoctorId());
+        for (Prescription p : prescriptions) {
+            Doctor doctor = doctorsById.get(p.getDoctorId());
             if (doctor != null) {
-                finalMap.put(prescription.getId(), doctor);
+                finalMap.put(p.getId(), doctor);
             }
         }
         return finalMap;
+    }
+
+
+    private void redirectSafe(HttpServletRequest req, HttpServletResponse resp, String path) {
+        try {
+            resp.sendRedirect(req.getContextPath() + path);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to redirect", e);
+        }
+    }
+
+    private void forwardSafe(HttpServletRequest req, HttpServletResponse resp, String path) {
+        try {
+            req.getRequestDispatcher(path).forward(req, resp);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException("Failed to forward", e);
+        }
+    }
+
+    private void forwardWithError(HttpServletRequest req, HttpServletResponse resp, String errorMessage) {
+        req.setAttribute("error", errorMessage);
+        forwardSafe(req, resp, "/patient/prescriptions.jsp");
     }
 }

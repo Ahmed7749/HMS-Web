@@ -1,7 +1,5 @@
 package com.hospital.servlets.Doctor;
 
-import com.hospital.daos.DoctorDAO;
-import com.hospital.daos.PatientDAO;
 import com.hospital.daos.PrescriptionsDAO;
 import com.hospital.pojos.Prescription;
 import jakarta.servlet.ServletConfig;
@@ -24,37 +22,47 @@ public class PrescribeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/doctor/prescribe.jsp").forward(req,resp);
+        req.getRequestDispatcher("/doctor/prescribe.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addPrescription(req,resp);
-    }
-
-    private void addPrescription(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            String medicationName = req.getParameter("medication_name");
-            String dosage = req.getParameter("dosage");
-            String instructions = req.getParameter("instructions");
-            String pIdStr = req.getParameter("patient_id");
-            String dIdStr = req.getParameter("doctor_id");
-            System.out.println("Received Patient ID: '" + pIdStr + "'");
-            System.out.println("Received Doctor ID: '" + dIdStr + "'");
-            if (pIdStr == null || pIdStr.isEmpty() || dIdStr == null || dIdStr.isEmpty()) {
-                throw new NumberFormatException("ID is missing");
-            }
-            int patientId = Integer.parseInt(pIdStr);
-            int doctorId = Integer.parseInt(dIdStr);
-            prescriptionsDAO.addPrescription(new Prescription(medicationName, dosage, instructions, doctorId, patientId));
+
+            Prescription prescription = buildPrescriptionFromRequest(req);
+
+
+            prescriptionsDAO.addPrescription(prescription);
+
+
             resp.sendRedirect(req.getContextPath() + "/doctor/home?success=Prescription+Added");
 
-        } catch (NumberFormatException e) {
-            System.out.println("Parsing error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+
             resp.sendRedirect(req.getContextPath() + "/doctor/home?error=Invalid+Data");
         } catch (Exception e) {
-            System.out.println("Database error: " + e.getMessage());
+
             resp.sendRedirect(req.getContextPath() + "/doctor/home?error=Database+Error");
         }
+    }
+
+
+
+    private Prescription buildPrescriptionFromRequest(HttpServletRequest req) {
+        String medicationName = req.getParameter("medication_name");
+        String dosage = req.getParameter("dosage");
+        String instructions = req.getParameter("instructions");
+
+        int patientId = parseRequiredInt(req.getParameter("patient_id"));
+        int doctorId = parseRequiredInt(req.getParameter("doctor_id"));
+
+        return new Prescription(medicationName, dosage, instructions, doctorId, patientId);
+    }
+
+    private int parseRequiredInt(String param) {
+        if (param == null || param.trim().isEmpty()) {
+            throw new IllegalArgumentException("Missing required ID parameter");
+        }
+        return Integer.parseInt(param.trim());
     }
 }
