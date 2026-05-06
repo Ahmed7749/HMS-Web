@@ -3,7 +3,7 @@ import com.hospital.utils.Validations;
 
 import java.time.LocalDateTime;
 
-public class Prescriptions {
+public class Prescription {
     private int id;
     private String medicationName;
     private String dosage;
@@ -12,7 +12,7 @@ public class Prescriptions {
     private int doctorId;
     private int patientId;
 
-    public Prescriptions(int id, String medicationName, String dosage, String instructions, int doctorId, int patientId) {
+    public Prescription(int id, String medicationName, String dosage, String instructions, int doctorId, int patientId) {
         this.id = id;
         this.medicationName = Validations.checkNotNull(medicationName, "Medication must have a name");
         this.dosage = Validations.checkNotNull(dosage, "You must put a dosage for the medication");
@@ -22,7 +22,7 @@ public class Prescriptions {
         this.patientId = patientId;
     }
 
-    public Prescriptions(String medicationName, String dosage, String instructions, LocalDateTime datePrescribed, int doctorId, int patientId) {
+    public Prescription(String medicationName, String dosage, String instructions, int doctorId, int patientId) {
         this.medicationName = Validations.checkNotNull(medicationName, "Medication must have a name");
         this.dosage = Validations.checkNotNull(dosage, "You must put a dosage for the medication");
         this.instructions = Validations.checkNotNull(instructions, "You must include instructions for the medication");
