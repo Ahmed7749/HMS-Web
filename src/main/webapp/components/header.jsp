@@ -16,7 +16,7 @@
                     <c:when test="${sessionScope.user.role eq 'PATIENT'}">
                         <a href="${pageContext.request.contextPath}/patient/book">Book now !</a>
                         <a href="${pageContext.request.contextPath}/patient/appointments">Your appointments</a>
-                        <a href="${pageContext.request.contextPath}/patient/recipes.jsp">Your doctor recipes</a>
+                        <a href="${pageContext.request.contextPath}/patient/prescriptions">Your doctor recipes</a>
                         <a href="${pageContext.request.contextPath}/patient/home.jsp">Home page</a>
                     </c:when>
                     <c:when test="${sessionScope.user.role eq 'ADMIN'}">
