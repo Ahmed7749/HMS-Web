@@ -56,6 +56,12 @@
                     </div>
 
                     <div class="action-column">
+                        <form action="${pageContext.request.contextPath}/doctor/prescribe" method="get" style="margin-bottom: 8px;">
+                            <input type="hidden" name="patientId" value="${patient.id}">
+                            <input type="hidden" name="appointmentId" value="${appt.id}">
+                            <input type="hidden" name="doctorId" value="${doctor.id}">
+                            <button type="submit" class="prescribe-btn">Prescribe</button>
+                        </form>
                         <form action="${pageContext.request.contextPath}/doctor/cancel" method="post">
                             <input type="hidden" name="appointmentId" value="${appt.id}">
                             <button type="submit" class="cancel-btn">Cancel Visit</button>
