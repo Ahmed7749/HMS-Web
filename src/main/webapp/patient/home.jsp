@@ -23,7 +23,7 @@
         <div class="card info-card">
             <h2>Prescriptions</h2>
             <p>View your medical recipes and meds.</p>
-            <a href="${pageContext.request.contextPath}/patient/recipes.jsp" class="btn">View Details</a>
+            <a href="${pageContext.request.contextPath}/patient/prescriptions" class="btn">View Details</a>
         </div>
     </div>
 </body>
