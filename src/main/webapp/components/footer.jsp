@@ -23,7 +23,7 @@
           <c:when test="${sessionScope.user.role eq 'PATIENT'}">
             <a class="footer-link" href="${pageContext.request.contextPath}/patient/book">Book now !</a>
             <a class="footer-link" href="${pageContext.request.contextPath}/patient/appointments">Your appointments</a>
-            <a class="footer-link" href="${pageContext.request.contextPath}/patient/recipes.jsp">Your doctor recipes</a>
+            <a class="footer-link" href="${pageContext.request.contextPath}/patient/prescriptions">Your doctor recipes</a>
             <a class="footer-link" href="${pageContext.request.contextPath}/patient/home.jsp">Home page</a>
           </c:when>
           <c:when test="${sessionScope.user.role eq 'ADMIN'}">
