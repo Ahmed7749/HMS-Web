@@ -103,4 +103,27 @@ public abstract class GenericDAO{
             DatabaseConnector.returnConnection(con);
         }
     }
+
+
+
+    public void executeUpdateWithConnection(Connection con, String sql, Object... params) throws SQLException {
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
+            }
+            stmt.executeUpdate();
+
+        }
+    }
+
+    protected boolean executeExistsWithConnection(Connection con, String sql, Object... parameters) throws SQLException {
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            for (int i = 0; i < parameters.length; i++) {
+                stmt.setObject(i + 1, parameters[i]);
+            }
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
 }
