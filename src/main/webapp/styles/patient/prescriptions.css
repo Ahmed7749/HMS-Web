@@ -107,7 +107,32 @@
     line-height: 1.5;
     max-width: 80%;
 }
+.prescription-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #777;
+}
 
+.download-pdf-btn {
+    display: inline-block;
+    background-color: #17a2b8;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.download-pdf-btn:hover {
+    background-color: #138496;
+    transform: translateY(-2px);
+    color: white;
+}
 
 @media (max-width: 768px) {
     .prescriptions-grid {
