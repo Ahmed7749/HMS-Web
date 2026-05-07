@@ -88,4 +88,33 @@ public class AppointmentDAO extends GenericDAO{
         String sql = "SELECT * FROM appointments WHERE doctor_id = ? ORDER BY appointment_date ASC, appointment_time ASC";
         return executeQueryList(sql, AppointmentSupplier::getAppointmentViaResultSet, doctorId);
     }
+
+    public boolean isDoctorLocked(Connection con, int doctorId, LocalDate date, LocalTime time) throws SQLException {
+        String sql = "SELECT 1 FROM appointments WHERE doctor_id = ? AND appointment_date = ? AND appointment_time = ? FOR UPDATE";
+        return executeExistsWithConnection(con, sql,
+                doctorId,
+                Date.valueOf(date),
+                Time.valueOf(time)
+        );
+    }
+
+    public boolean isPatientLocked(Connection con, int patientId, LocalDate date, LocalTime time) throws SQLException {
+        String sql = "SELECT 1 FROM appointments WHERE patient_id = ? AND appointment_date = ? AND appointment_time = ?";
+        return executeExistsWithConnection(con, sql,
+                patientId,
+                Date.valueOf(date),
+                Time.valueOf(time)
+        );
+    }
+
+    public void insertAppointmentLocked(Connection con, Appointment appt) throws SQLException {
+        String sql = "INSERT INTO appointments (appointment_date, appointment_time, patient_id, doctor_id) VALUES (?,?,?,?)";
+
+        executeUpdateWithConnection(con, sql,
+                Date.valueOf(appt.getAppointmentDate()),
+                Time.valueOf(appt.getAppointmentTime()),
+                appt.getPatient_id(),
+                appt.getDoctor_id()
+        );
+    }
 }
