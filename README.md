@@ -3,7 +3,9 @@
 A comprehensive, MVC-based web application designed to streamline the daily operations of "Pure Hearts Hospital." Built entirely on a raw Java technology stack (Servlets, JSP, JDBC), this system demonstrates a robust understanding of core web development, database architecture, and secure role-based access control without relying on heavy frameworks.
 
 ![Home Page](CodeImages/OutPutImages/home_page.png)
+
 <hr>
+
 ## Version 3.0: Core Architecture
 The foundational release focused on establishing the MVC architecture, database connectivity, and role-based workflows for three distinct user types.
 
