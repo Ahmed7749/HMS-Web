@@ -12,9 +12,7 @@
 <main class="main-container">
 
 
-    <c:if test="${not empty error}">
-        <div class="error-message">${error}</div>
-    </c:if>
+
 
     <div class="prescriptions-grid">
         <c:if test="${empty prescriptions}">
@@ -29,7 +27,7 @@
             <div class="prescription-card">
                 <div class="prescription-header">
                     <h3 class="med-name">${prescription.medicationName}</h3>
-                    <span class="med-dosage">${prescription.dosage}</span>
+                    <span class="med-dosage">Dosage: ${prescription.dosage}</span>
                 </div>
 
                 <div class="prescription-body">
