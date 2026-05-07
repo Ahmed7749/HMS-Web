@@ -1,51 +1,66 @@
 package com.hospital.utils;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 public class DatabaseConnector {
 
-
-    private static BlockingQueue<Connection> connectionPool;
-    private static final int POOL_SIZE = 5;
+    private static HikariDataSource dataSource;
 
     static {
         try {
-            System.out.println("Initializing Connection Pool...");
-            connectionPool = new ArrayBlockingQueue<>(POOL_SIZE);
+            System.out.println("Initializing HikariCP Connection Pool...");
+
             String dbUrl = System.getenv("DB_URL");
             String dbUser = System.getenv("DB_USER");
             String dbPassword = System.getenv("DB_PASSWORD");
 
             if(dbUrl == null) throw new RuntimeException("ENV variables not set!");
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(dbUrl);
+            config.setUsername(dbUser);
+            config.setPassword(dbPassword);
+            config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-            for (int i = 0; i < POOL_SIZE; i++) {
-                Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-                connectionPool.offer(con);
-            }
-            System.out.println("Pool Initialized with " + POOL_SIZE + " connections.");
+
+            config.setMaximumPoolSize(10);
+            config.setMinimumIdle(2);
+            config.setConnectionTimeout(5000);
+            config.setIdleTimeout(30000);
+
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+            dataSource = new HikariDataSource(config);
+            System.out.println("HikariCP Pool Initialized Successfully.");
 
         } catch (Exception e) {
-            throw new RuntimeException("Fatal Error: Could not init DB Pool", e);
+            throw new RuntimeException("Fatal Error: Could not init HikariCP Pool", e);
         }
     }
 
     public static Connection getDatabaseConnection() {
         try {
-            return connectionPool.take();
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Error waiting for connection", e);
+
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting connection from Hikari pool", e);
         }
     }
 
     public static void returnConnection(Connection con) {
         if (con != null) {
-            connectionPool.offer(con);
+            try {
+
+                con.close();
+            } catch (SQLException e) {
+                System.err.println("Failed to return connection to pool: " + e.getMessage());
+            }
         }
     }
 }
