@@ -39,6 +39,10 @@
 
                 <div class="prescription-footer">
                     <span class="doctor-name">Prescribed by: Dr. ${doctor.lastName}</span>
+                    <div class="prescription-footer">
+                        <span class="doctor-name">Prescribed by: Dr. ${doctor.lastName}</span>
+                        <a href="${pageContext.request.contextPath}/patient/downloadPrescription?id=${prescription.id}" class="download-pdf-btn">Download PDF</a>
+                    </div>
                 </div>
             </div>
         </c:forEach>
