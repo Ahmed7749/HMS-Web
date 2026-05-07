@@ -36,4 +36,9 @@ public class    PrescriptionsDAO extends GenericDAO{
         String sql = "SELECT * FROM prescriptions WHERE patient_id = ?";
         return executeQueryList(sql, PrescriptionSupplier::getPrescriptionViaResultSet, patientId);
     }
+
+    public Optional<Prescription> getPrescriptionById(int id) {
+        String sql = "SELECT * FROM prescriptions WHERE id = ?";
+        return executeQuerySingle(sql, PrescriptionSupplier::getPrescriptionViaResultSet, id);
+    }
 }
