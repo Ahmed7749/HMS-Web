@@ -1,0 +1,93 @@
+
+CREATE DATABASE IF NOT EXISTS hospitalmanagement;
+USE hospitalmanagement;
+
+
+DROP TABLE IF EXISTS prescriptions;
+DROP TABLE IF EXISTS appointments;
+DROP TABLE IF EXISTS patients;
+DROP TABLE IF EXISTS doctors;
+DROP TABLE IF EXISTS users;
+
+
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, -- Storing BCrypt hashes in V3.1
+    role ENUM('Admin', 'Doctor', 'Patient') NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE doctors (
+    doctor_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL,
+    specialization VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20),
+    schedule TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE patients (
+    patient_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL,
+    date_of_birth DATE NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    blood_type VARCHAR(10),
+    phone_number VARCHAR(20),
+    address TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE appointments (
+    appointment_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    doctor_id INT NOT NULL,
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,
+    status ENUM('Scheduled', 'Completed', 'Cancelled') DEFAULT 'Scheduled',
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE,
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE prescriptions (
+    prescription_id INT AUTO_INCREMENT PRIMARY KEY,
+    appointment_id INT NOT NULL,
+    medication VARCHAR(255) NOT NULL,
+    dosage VARCHAR(100) NOT NULL,
+    instructions TEXT,
+    issued_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id) ON DELETE CASCADE
+);
+
+
+INSERT INTO users (username, password, role, full_name, email) VALUES
+('admin_ahmed', '$2a$10$dummyHashStringHere1234567890', 'Admin', 'Ahmed Qassem', 'ahmed.admin@purehearts.com'),
+('dr_smith', '$2a$10$dummyHashStringHere1234567890', 'Doctor', 'Dr. John Smith', 'jsmith@purehearts.com'),
+('dr_sarah', '$2a$10$dummyHashStringHere1234567890', 'Doctor', 'Dr. Sarah Connor', 'sconnor@purehearts.com'),
+('p_jdoe', '$2a$10$dummyHashStringHere1234567890', 'Patient', 'John Doe', 'john.doe@email.com'),
+('p_mgarcia', '$2a$10$dummyHashStringHere1234567890', 'Patient', 'Maria Garcia', 'maria.g@email.com');
+
+
+INSERT INTO doctors (user_id, specialization, phone_number, schedule) VALUES
+(2, 'Cardiology', '+966500000001', 'Mon-Wed-Fri: 09:00 AM - 04:00 PM'),
+(3, 'Neurology', '+966500000002', 'Tue-Thu: 10:00 AM - 05:00 PM');
+
+
+INSERT INTO patients (user_id, date_of_birth, gender, blood_type, phone_number, address) VALUES
+(4, '1995-08-15', 'Male', 'O+', '+966500000003', 'Al Olaya District, Riyadh'),
+(5, '1988-03-22', 'Female', 'A-', '+966500000004', 'Al Malaz, Riyadh');
+
+
+INSERT INTO appointments (patient_id, doctor_id, appointment_date, appointment_time, status) VALUES
+(1, 1, '2026-06-10', '10:00:00', 'Completed'),
+(2, 2, '2026-06-11', '14:30:00', 'Scheduled'),
+(1, 2, '2026-05-20', '09:15:00', 'Cancelled');
+
+INSERT INTO prescriptions (appointment_id, medication, dosage, instructions) VALUES
+(1, 'Lisinopril', '10mg', 'Take one tablet daily in the morning with food. Avoid high potassium foods.');

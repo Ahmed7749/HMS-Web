@@ -1,0 +1,8 @@
+CREATE TABLE doctors (
+    doctor_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL,
+    specialization VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20),
+    schedule TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
